@@ -1,0 +1,117 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a (click)="addspeech(content3)" class="btn btn-primary text-white mb-3">Add Filters</a>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h4 class="font-weight-bold">Filters 1</h4>
+                            <span class="ml-auto"><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span>
+                        </div>
+                        <ul>
+                            <li> Option 1 </li>
+                            <li> Option 2 </li>
+                            <li> Option 3 </li>
+                            <li> Option 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h4 class="font-weight-bold">Filters 2</h4>
+                            <span class="ml-auto"><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span>
+                        </div>
+                        <ul>
+                            <li> Option 1 </li>
+                            <li> Option 2 </li>
+                            <li> Option 3 </li>
+                            <li> Option 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h4 class="font-weight-bold">Filters 3</h4>
+                            <span class="ml-auto"><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span>
+                        </div>
+                        <ul>
+                            <li> Option 1 </li>
+                            <li> Option 2 </li>
+                            <li> Option 3 </li>
+                            <li> Option 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h4 class="font-weight-bold">Filters 4</h4>
+                            <span class="ml-auto"><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash"></i></a></span>
+                        </div>
+                        <ul>
+                            <li> Option 1 </li>
+                            <li> Option 2 </li>
+                            <li> Option 3 </li>
+                            <li> Option 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content3 let-modal>
+    <div class="modal-header p-2">
+        <h4 class="modal-title">Add Filters</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        <form action="">
+            <div class="form-group">
+                <label>Label</label>
+                <input type="text" class="form-control" placeholder="Add Filters Name">
+                <label class="mt-2">Options</label>
+                <input type="text" class="form-control" placeholder="Add Filters Name">
+            </div>
+        </form>
+        <div class="col-12 text-right"><button class="btn theme_btn mt-3">+</button></div>
+        <div class="col-12"><button class="btn theme_btn mt-3">Save</button></div>
+
+
+    </div>
+</ng-template>
+
+<ng-template #content4 let-modal>
+    <div class="modal-header p-2">
+        <h4 class="modal-title">Edit Filters</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body">
+        <form action="">
+            <div class="form-group">
+                <label>Label</label>
+                <input type="text" class="form-control" placeholder="Add Filters Name">
+                <label class="mt-2">Options</label>
+                <input type="text" class="form-control" placeholder="Add Filters Name">
+            </div>
+        </form>
+        <div class="col-12 text-right"><button class="btn theme_btn mt-3">+</button></div>
+        <div class="col-12"><button class="btn theme_btn mt-3">Save</button></div>
+
+
+    </div>
+</ng-template>

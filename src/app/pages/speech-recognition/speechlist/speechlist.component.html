@@ -1,0 +1,133 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <a (click)="addspeech(content3)" class="btn theme_btn mb-3">Add Sentences</a>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-between">HINDI <span><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt font-14"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash font-14"></i></a></span></h3>
+                        <ul class="mb-0">
+                            <li class="d-flex"> Sentences 1 </li>
+                            <li class="d-flex"> Sentences 2 </li>
+                            <li class="d-flex"> Sentences 3 </li>
+                            <li class="d-flex"> Sentences 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-between">PUNJABI <span><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt font-14"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash font-14"></i></a></span></h3>
+                        <ul class="mb-0">
+                            <li class="d-flex"> Sentences 1 </li>
+                            <li class="d-flex"> Sentences 2 </li>
+                            <li class="d-flex"> Sentences 3 </li>
+                            <li class="d-flex"> Sentences 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-between">ENGLISH <span><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt font-14"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash font-14"></i></a></span></h3>
+                        <ul class="mb-0">
+                            <li class="d-flex"> Sentences 1 </li>
+                            <li class="d-flex"> Sentences 2 </li>
+                            <li class="d-flex"> Sentences 3 </li>
+                            <li class="d-flex"> Sentences 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="d-flex justify-content-between">FRENCH <span><a class="cursor_pointer" (click)="editspeech(content4)"><i class="fas fa-pencil-alt font-14"></i></a><a href="javascript:void()" class="ml-2"><i class="fas fa-trash font-14"></i></a></span></h3>
+                        <ul class="mb-0">
+                            <li class="d-flex"> Sentences 1 </li>
+                            <li class="d-flex"> Sentences 2 </li>
+                            <li class="d-flex"> Sentences 3 </li>
+                            <li class="d-flex"> Sentences 4 </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #content3 let-modal>
+    <div class="modal-header p-2">
+        <h4 class="modal-title">Add Speech</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body">
+        <form action="" class="col-12 row">
+            <div class="col-md-6 form-group">
+                <select name="" id="" class="form-control">
+                    <option selected disabled> Select Language </option>
+                    <option> HINDI </option>
+                    <option> PUNJABI </option>
+                    <option> ENGLISH </option>
+                    <option> FRENCH </option>
+                </select>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" class="form-control w-100" placeholder="Add sentence">
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="btn theme_btn mt-3">Add More</button>
+            </div>
+            <div class="col-md-12">
+                <button class="btn theme_btn mt-3">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #content4 let-modal>
+    <div class="modal-header p-2">
+        <h4 class="modal-title">Edit Speech</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body">
+        <form action="" class="col-12 row">
+            <div class="col-md-6 form-group">
+                <select name="" id="" class="form-control">
+                    <option selected disabled> Change Language</option>
+                    <option> HINDI </option>
+                    <option> PUNJABI </option>
+                    <option> ENGLISH </option>
+                    <option> FRENCH </option>
+                </select>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" class="form-control w-100" value="Sentence 1" placeholder="Add sentence">
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" class="form-control w-100" value="Sentence 2" placeholder="Add sentence">
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" class="form-control w-100" value="Sentence 3" placeholder="Add sentence">
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" class="form-control w-100" value="Sentence 4" placeholder="Add sentence">
+            </div>
+            <div class="col-md-12 text-right">
+                <button class="btn theme_btn mt-3">Add More</button>
+            </div>
+            <div class="col-md-12">
+                <button class="btn theme_btn mt-3">Update</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
