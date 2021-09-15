@@ -5,6 +5,7 @@ import { catchError, finalize, retry, tap } from "rxjs/operators";
 import { CommonService } from '../common/common.service';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class InterceptorService {
     private router: Router,
     private ngxService: NgxUiLoaderService
   ) {
-    if(localStorage.accessToken != undefined || localStorage.accessToken != null) {
-      this.token = localStorage.accessToken
+    if(sessionStorage.ZeepToken != undefined || sessionStorage.ZeepToken != null) {
+      this.token = sessionStorage.ZeepToken.token
     }
   }
 
@@ -37,11 +38,14 @@ export class InterceptorService {
       // retry(1),
       catchError((error: HttpErrorResponse) => {
         if (error.status == 403) {
+          sessionStorage.removeItem(environment.TokenValue)
           this.router.navigateByUrl('/login');
         }
         if (error.status == 401) {
           // 401 handled in auth.interceptor
           // this.commonService.presentsToast('error','top-end','you are logout for security purpose.');
+          sessionStorage.removeItem(environment.TokenValue)
+          this.router.navigateByUrl('/login');
         }
         return throwError(error);       
       }),
@@ -67,7 +71,7 @@ export class InterceptorService {
             /***  Auto LogOut if Api response 401 ** */
             this.commonService.presentsToast('warning','top-end', "You have been logged out for security purpose.");
             this.router.navigate([`/login`]);
-            localStorage.clear();
+            sessionStorage.clear();
             break;
           case 500:
             /*** If api does not respond  ** */ 

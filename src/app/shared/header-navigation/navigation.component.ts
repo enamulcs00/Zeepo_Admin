@@ -7,6 +7,7 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 
 @Component({
@@ -91,6 +92,8 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   logout(){
+    sessionStorage.removeItem(environment.TokenValue);
+    this.router.navigate(['/login']);
     var rememberMe = localStorage.getItem('rememberMe');
     var remembermeDetails = localStorage.getItem('userEmail_pass');
     localStorage.clear();

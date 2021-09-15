@@ -8,7 +8,7 @@ import {
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { InterceptorService } from 'src/app/services/interceptor/interceptor.service'
+// import { InterceptorService } from 'src/app/services/interceptor/interceptor.service'
 import { Routes, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
@@ -30,9 +30,9 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { apilist } from './services/http/api.list';
-
-
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import {JwtInterceptor} from 'src/app/_jwt/jwt.interceptor'
+import { ErrorInterceptor } from 'src/app/_jwt/error.interceptor'
 
 
 
@@ -69,7 +69,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         NgMultiSelectDropDownModule.forRoot(),
         AgmCoreModule.forRoot({ apiKey: 'AIzaSyBUb3jDWJQ28vDJhuQZxkC0NXr_zycm8D0' }),
         DragDropModule,
-
+        NgxSpinnerModule
 
     ],
 
@@ -82,10 +82,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
             provide: LocationStrategy,
             useClass: HashLocationStrategy
         },
-        { 
-            provide: HTTP_INTERCEPTORS, 
-            useClass: InterceptorService, 
-            multi: true },
+        // { 
+        //     provide: HTTP_INTERCEPTORS, 
+        //     useClass: InterceptorService, 
+        //     multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+            { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
             apilist
     ],
     bootstrap: [AppComponent],

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { apilist } from './api.list';
 
@@ -60,7 +61,16 @@ export class HttpService {
     return this.http.get(this.baseUrl + this.apiList[url] + "/" + params);
   }
 
-
+  post(url: string, postData: any = {}) {
+		return this.http.post<any>(`${environment.baseUrl}${url}`,postData).pipe(map((data: any) => {
+				return data;
+			}));
+	}
+PutWithHeader(url: string, postData: any = {},mime: boolean) {
+  return this.http.post<any>(`${environment.baseUrl}${url}`,postData, this.header(mime)).pipe(map((data: any) => {
+      return data;
+    }));
+}
   // Put method with Header code .......
 
   httpPutWithHeader(url: string, Id, params, mime: boolean): Observable<Object> {
@@ -101,7 +111,7 @@ export class HttpService {
     formData.append('image', fileData, fileData.name);
     const headers = new HttpHeaders({
       "mimeType": "multipart/form-data",
-      auth: localStorage.accessToken
+      auth: sessionStorage.ZeepToken
     });
 
     const headerObj = { headers };
@@ -109,21 +119,45 @@ export class HttpService {
   }
 
   header(mime) {
-    if (localStorage.accesstoken && mime) {
+    if (sessionStorage.ZeepToken && mime) {
       let headers = new HttpHeaders({
         // "mimeType": "multipart/form-data",
-        authorization: localStorage.accesstoken
+        authorization: sessionStorage.ZeepToken.token
       });
       const option = {
         headers
       };
       return option;
     }
-    if (localStorage.accesstoken && !mime) {
+    if (sessionStorage.ZeepToken && !mime) {
       let headers = new HttpHeaders({
         'content-type': 'application/json',
         // "mimeType": "multipart/form-data",
-        authorization: localStorage.accesstoken
+        authorization: sessionStorage.ZeepToken.token
+      });
+      const option = {
+        headers
+      };
+      return option;
+    }
+  }
+
+  Httpheader() {
+    if (sessionStorage.ZeepToken && sessionStorage.ZeepToken.token) {
+      let headers = new HttpHeaders({
+        // "mimeType": "multipart/form-data",
+        authorization: sessionStorage.ZeepToken.token
+      });
+      const option = {
+        headers
+      };
+      return option;
+    }
+    if (sessionStorage.ZeepToken ) {
+      let headers = new HttpHeaders({
+        'content-type': 'application/json',
+        // "mimeType": "multipart/form-data",
+        authorization: sessionStorage.ZeepToken.token
       });
       const option = {
         headers

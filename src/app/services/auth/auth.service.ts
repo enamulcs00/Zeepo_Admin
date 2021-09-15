@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     if(next.routeConfig.path=='login' || next.routeConfig.path=='forgot' || next.routeConfig.path=='reset' || next.routeConfig.path=='auth') {
       console.log('true');
       
-      if(!(localStorage.accesstoken == '' || localStorage.accesstoken == undefined || localStorage.accesstoken == null))
+      if(!(sessionStorage.ZeepToken == '' || sessionStorage.ZeepToken == undefined || sessionStorage.ZeepToken == null))
       {
         this.router.navigateByUrl('/dashboard')
         return false;
@@ -25,12 +25,12 @@ export class AuthGuard implements CanActivate {
       }
     }
     else{
-      if(!(localStorage.accesstoken == '' || localStorage.accesstoken == undefined || localStorage.accesstoken == null))
+      if(!(sessionStorage.ZeepToken == '' || sessionStorage.ZeepToken == undefined || sessionStorage.ZeepToken == null))
       {
         return true;
       }
       else{ 
-        localStorage.clear()
+        sessionStorage.clear()
         this.router.navigateByUrl('/auth/login')
         return false;
       }

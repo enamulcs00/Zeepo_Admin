@@ -3,7 +3,9 @@ import {HttpService} from 'src/app/services/http/http.service';
 import {CommonService} from 'src/app/services/common/common.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { environment } from 'src/environments/environment';
+import {ShareableService} from 'src/app/_helpers/shareable.service'
+import { apilist } from 'src/app/services/http/api.list';
 @Component({
   selector: 'app-login',
   templateUrl: './login2.component.html',
@@ -16,13 +18,14 @@ export class Login2Component implements OnInit{
   loginnumber= false;
   numberform= true;
   otpform= false;
-
+  ForgotPasswordForm:FormGroup
   loginForm:FormGroup;
   submitted = false;
   accesstoken: string;
   isRememberMeChecked = false;
+  otpValue: any;
 
-  constructor(private http: HttpService, private cm: CommonService, private fb: FormBuilder, private router: Router) {
+  constructor(private http: HttpService, private cm: CommonService, private fb: FormBuilder, private router: Router,private service:ShareableService,private apiList: apilist) {
       
    }
 
@@ -68,8 +71,6 @@ export class Login2Component implements OnInit{
 
   submit() {
     this.submitted=true;
-    console.log(this.loginForm.value);
-    
     var params={
       'email':this.loginForm.value.email,
       'password':this.loginForm.value.password
@@ -78,9 +79,9 @@ export class Login2Component implements OnInit{
         return;
       }
       if (this.loginForm.valid && this.submitted) {
-          this.http.httpPost('login', this.loginForm.value).subscribe((res: any) => {
+          this.http.post(this.apiList.login, params).subscribe((res: any) => {
               if (res.code == 200) {
-                  localStorage.setItem("accesstoken", res.data.token);
+                sessionStorage.setItem(environment.TokenValue,JSON.stringify(res?.data));
                   this.cm.presentsToast('success', 'top-end', res.message);
                   this.router.navigateByUrl('/dashboard');
                   this.RememberMe(this.loginForm.value.rememberMe, params);
@@ -94,16 +95,65 @@ export class Login2Component implements OnInit{
   showRecoverForm() {
     this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
+    this.ForgotPasswordForm = this.fb.group({
+      email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
+    })
   }
   shownumbrForm() {
     this.loginform = !this.loginform;
     this.loginnumber = !this.loginnumber;
   }
   signotpform() {
-    this.numberform = !this.numberform;
+    this.recoverform = !this.recoverform
+    this.loginnumber = !this.loginnumber
     this.otpform = !this.otpform;
   }
   onOtpChange(e) {
-    console.log(e);
+this.otpValue = e
   }
+  ResetFor(ref){
+    if(this.ForgotPasswordForm.valid){
+          let obj = {"email":this.ForgotPasswordForm.value.email}
+          this.Forgot(obj,ref)
+        }else {
+          this.ForgotPasswordForm.markAllAsTouched()
+        }
+    }
+    Forgot(obj,onlyFor){
+      this.service.put(`user/forgot-password/`,obj).subscribe((res:any)=>{
+        if([200,201].includes(res.code)){
+          this.cm.presentsToast('success', 'top-end', res.message);
+          onlyFor=='forgot'?this.signotpform():''
+        }
+      })
+    }
+    ForgotOtp(obj){
+      this.service.put(`user/forgot-verify-otp/`,obj).subscribe((res:any)=>{
+        if([200,201].includes(res.code)){
+        this.service.SaveObj = obj
+        this.cm.presentsToast('success', 'top-end', res.message);
+         this.router.navigate(['/changepassword'])
+        }
+      })
+    }
+    SendOtp(obj){
+      this.service.post(`user/verify-otp/`,obj).subscribe((res:any)=>{
+        if([200,201].includes(res.code)){
+       sessionStorage.setItem("OtpDetails",JSON.stringify(obj));
+       this.cm.presentsToast('success', 'top-end', res.message);
+         this.router.navigate(['/changepassword'])
+        }
+      })
+    }
+    VerifyOtp(){
+      if(this.otpValue && this.otpValue.length===4){
+        let obj = {
+          "email":this.ForgotPasswordForm.value.email,
+          "otp":this.otpValue
+           }
+           this.ForgotOtp(obj)
+      }else{
+        this.cm.presentsToast('Error', 'top-end', 'Please enter 4-digit OTP');
+      }
+      }
 }

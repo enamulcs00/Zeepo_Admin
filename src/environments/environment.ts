@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://182.72.246.251:1202/api/'
+  baseUrl: 'http://182.72.246.251:1202/api/',
+  TokenValue:"ZeepToken",
+  googleMapKey: 'AIzaSyC7Ju90BCi9a01akYUWBvrEOFzwl8yxWZ8'
 };
 
 /*

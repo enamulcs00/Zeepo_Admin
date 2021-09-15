@@ -80,6 +80,8 @@ import { SOSComponent } from './sos/sos.component';
 import { SpeechRecognitionComponent } from './speech-recognition/speech-recognition.component';
 import { FiltersComponent } from './filters/filters.component';
 import { AboutappComponent } from './aboutapp/aboutapp.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
   imports: [
@@ -102,7 +104,9 @@ CommonModule,
     MatPaginatorModule,
     MatSortModule,
     DragDropModule,
-    MatNativeDateModule
+    NgxSpinnerModule,
+    MatNativeDateModule,
+    GooglePlaceModule
 
   ],
   declarations: [
