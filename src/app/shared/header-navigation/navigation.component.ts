@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   NgbModal,
   ModalDismissReasons,
@@ -20,7 +21,7 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
   public element1: any;
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal,private router: Router) {}
 
   // This is for Notifications
   notifications: Object[] = [
@@ -87,6 +88,20 @@ export class NavigationComponent implements AfterViewInit {
   ];
   addBikeModal(addBike) {
     this.modalService.open(addBike, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg',backdrop:"static"});
+  }
+
+  logout(){
+    var rememberMe = localStorage.getItem('rememberMe');
+    var remembermeDetails = localStorage.getItem('userEmail_pass');
+    localStorage.clear();
+    // this.router.navigate(['/authentication/login']);
+    if (!(rememberMe == null || rememberMe == undefined || rememberMe == '')) {
+      localStorage.setItem('rememberMe', rememberMe)
+    }
+    if (!(remembermeDetails == null || remembermeDetails == undefined || remembermeDetails == '')) {
+      localStorage.setItem('userEmail_pass', remembermeDetails)
+    }
+    this.router.navigateByUrl('/login');
   }
 
   ngAfterViewInit() {}
