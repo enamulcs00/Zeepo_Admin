@@ -18,7 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(request).pipe(
           tap((data: any) => {
-            console.log("Err cal",data);
+       
             
               if (data.body && data.body.code == 400) {
                 this.commonService.openDialog('error',data.body.message);
@@ -41,14 +41,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                   });
                   if(errr != ''){
                     this.commonService.openDialog('error',errr);
-                  
+                   
                   
                   }
               }
           }else {
-            var error = err.error?.error_description || err.error?.message || err.statusText || err?.message;
-            this.commonService.openDialog('error',error);
-            
+            var error = err.error|| err.error?.message || err.statusText || err?.message;
+            this.commonService.openDialog('error','Something went wrong');
+            console.log("Err cal",err);
         }
               if (err.status === 401) {
                 this.commonService.openDialog('error','Not authorized');

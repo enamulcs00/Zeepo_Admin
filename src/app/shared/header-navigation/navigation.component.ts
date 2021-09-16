@@ -7,6 +7,8 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { ToastrService } from 'ngx-toastr';
+import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -22,7 +24,7 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
   public element1: any;
-  constructor(private modalService: NgbModal,private router: Router) {}
+  constructor(private modalService: NgbModal,private router: Router,private service:ShareableService,private toaster:ToastrService) {}
 
   // This is for Notifications
   notifications: Object[] = [
@@ -94,17 +96,14 @@ export class NavigationComponent implements AfterViewInit {
   logout(){
     sessionStorage.removeItem(environment.TokenValue);
     this.router.navigate(['/login']);
-    var rememberMe = localStorage.getItem('rememberMe');
-    var remembermeDetails = localStorage.getItem('userEmail_pass');
-    localStorage.clear();
-    // this.router.navigate(['/authentication/login']);
-    if (!(rememberMe == null || rememberMe == undefined || rememberMe == '')) {
-      localStorage.setItem('rememberMe', rememberMe)
-    }
-    if (!(remembermeDetails == null || remembermeDetails == undefined || remembermeDetails == '')) {
-      localStorage.setItem('userEmail_pass', remembermeDetails)
-    }
-    this.router.navigateByUrl('/login');
+    // this.service.post(`auth/logout/`,'').subscribe((res:any)=>{
+    //   if([200,201].includes(res.code))
+    //   {
+    //    this.toaster.success("Logged out successuflly",'Logged out');
+    //    sessionStorage.removeItem(environment.TokenValue);
+    //    this.router.navigate(['/login']);
+    //   }
+    // })
   }
 
   ngAfterViewInit() {}
