@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common/common.service';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
@@ -18,7 +17,7 @@ export class changepasswordComponent {
   currentUser: any;
   ChangePasswordToute:any = `user/update-password/`
   IsToken :boolean = false
-  constructor(private fb:FormBuilder,private router:Router,private service:ShareableService,private toaster:ToastrService,private com:CommonService) {
+  constructor(private fb:FormBuilder,private router:Router,private service:ShareableService,private com:CommonService) {
    this.currentUser = JSON.parse(sessionStorage.getItem(environment.TokenValue));
   }
 ngOnInit(){

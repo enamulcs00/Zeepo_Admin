@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { ToastrService } from 'ngx-toastr';
+
 import { CommonService } from 'src/app/services/common/common.service';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit{
     PhoneNumberFormat = PhoneNumberFormat;
     preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
     
-    constructor(private service:ShareableService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
+    constructor(private service:ShareableService,private router:Router,private fb:FormBuilder,private cm:CommonService) {
     this.AdminId= JSON.parse(sessionStorage.getItem(environment.TokenValue)).id;
   
     }
@@ -117,7 +117,7 @@ export class ProfileComponent implements OnInit{
       this.service.put(`user/update-user-details/${this.AdminId}/`, obj).subscribe((res:any) => {
         this.GetVendorProfile()
           this.service.subject.next(true)
-          this.toaster.success("Profile updated successfully.", "Success!");
+          // this.toaster.success("Profile updated successfully.", "Success!");
           this.router.navigate(['/dashboard']);
           this.isLoading = false;
      

@@ -7,7 +7,7 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { ToastrService } from 'ngx-toastr';
+
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
@@ -24,7 +24,7 @@ export class NavigationComponent implements AfterViewInit {
 
   public showSearch = false;
   public element1: any;
-  constructor(private modalService: NgbModal,private router: Router,private service:ShareableService,private toaster:ToastrService) {}
+  constructor(private modalService: NgbModal,private router: Router,private service:ShareableService) {}
 
   // This is for Notifications
   notifications: Object[] = [

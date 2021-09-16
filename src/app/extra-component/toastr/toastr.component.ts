@@ -1,26 +1,26 @@
-import { Component } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+// import { Component } from '@angular/core';
+// import { ToastrService } from 'ngx-toastr';
 
-@Component({
-  templateUrl: './toastr.component.html'
-})
-export class ToastrComponent {
-  constructor(private toastr: ToastrService) {}
+// @Component({
+//   templateUrl: './toastr.component.html'
+// })
+// export class ToastrComponent {
+//   constructor(private toastr: ToastrService) {}
 
-  showSuccess() {
-    this.toastr.success('You are awesome!', 'Success!');
-  }
+//   showSuccess() {
+//     this.toastr.success('You are awesome!', 'Success!');
+//   }
   
 
-  showError() {
-    this.toastr.error('This is not good!', 'Oops!');
-  }
+//   showError() {
+//     this.toastr.error('This is not good!', 'Oops!');
+//   }
 
-  showWarning() {
-    this.toastr.warning('You are being warned.', 'Alert!');
-  }
+//   showWarning() {
+//     this.toastr.warning('You are being warned.', 'Alert!');
+//   }
 
-  showInfo() {
-    this.toastr.info('Just some information for you.');
-  }
-}
+//   showInfo() {
+//     this.toastr.info('Just some information for you.');
+//   }
+// }

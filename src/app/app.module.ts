@@ -12,7 +12,7 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { Routes, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
-import { ToastrModule } from 'ngx-toastr';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
@@ -61,7 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         FormsModule,
         HttpClientModule,
         NgbModule,
-        ToastrModule.forRoot(),
+       
         RouterModule.forRoot(Approutes, { useHash: false }),
         PerfectScrollbarModule,
         Ng2SearchPipeModule,
