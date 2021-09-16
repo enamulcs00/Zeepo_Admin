@@ -50,7 +50,7 @@ export const Approutes: Routes = [
       // },
       // { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
       {
-        path: 'pages',
+        path: 'pages',canActivate:[AuthGuard],
         loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
       },
     ]

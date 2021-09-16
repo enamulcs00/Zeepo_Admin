@@ -66,7 +66,7 @@ changepass()
       this.service.putApi(this.ChangePasswordToute,this.obj).subscribe((res:any)=>{
         if([200,201].includes(res.code))
         {
-         this.toaster.success("Password has been changed",'Success');
+         this.com.presentsToast('success', 'top-end', "Password has been changed successfully");
          window.history.back();
         }
       })

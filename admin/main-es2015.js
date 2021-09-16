@@ -200,7 +200,7 @@ class ErrorInterceptor {
                 return data.body;
             }
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(err => {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f;
             if (((_a = err.error) === null || _a === void 0 ? void 0 : _a.data) != null && ((_b = err.error) === null || _b === void 0 ? void 0 : _b.data) != undefined) {
                 if (typeof err.error.data == 'object') {
                     var errr = '';
@@ -217,16 +217,16 @@ class ErrorInterceptor {
                 }
             }
             else {
-                var error = err.error || ((_c = err.error) === null || _c === void 0 ? void 0 : _c.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
-                this.commonService.openDialog('error', 'Something went wrong');
-                console.log("Err cal", err);
+                var error = ((_c = err === null || err === void 0 ? void 0 : err.error) === null || _c === void 0 ? void 0 : _c.message) ? (_d = err === null || err === void 0 ? void 0 : err.error) === null || _d === void 0 ? void 0 : _d.message : 'Something went wrong';
+                this.commonService.openDialog('error', error);
+                console.log("Err cal", err, 'Errrrrr msg', error);
             }
             if (err.status === 401) {
                 this.commonService.openDialog('error', 'Not authorized');
                 sessionStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].TokenValue);
                 this.router.navigate(['/login']);
             }
-            var error = ((_d = err.error) === null || _d === void 0 ? void 0 : _d.error_description) || ((_e = err.error) === null || _e === void 0 ? void 0 : _e.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
+            var error = ((_e = err.error) === null || _e === void 0 ? void 0 : _e.error_description) || ((_f = err.error) === null || _f === void 0 ? void 0 : _f.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
         }));
     }
@@ -351,7 +351,7 @@ const Approutes = [
             // },
             // { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
             {
-                path: 'pages',
+                path: 'pages', canActivate: [src_app_helpers_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]],
                 loadChildren: () => Promise.all(/*! import() | pages-pages-module */[__webpack_require__.e("default~dashboards-dashboard-module~pages-pages-module"), __webpack_require__.e("pages-pages-module")]).then(__webpack_require__.bind(null, /*! ./pages/pages.module */ "./src/app/pages/pages.module.ts")).then(m => m.PagesModule)
             },
         ]

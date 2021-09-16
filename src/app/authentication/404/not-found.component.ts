@@ -6,4 +6,7 @@ import { Component, AfterViewInit } from '@angular/core';
 })
 export class NotfoundComponent implements AfterViewInit {
   ngAfterViewInit() {}
+  Back(){
+    window.history.back();
+  }
 }

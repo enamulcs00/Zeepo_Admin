@@ -370,7 +370,7 @@
                 return data.body;
               }
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
-              var _a, _b, _c, _d, _e;
+              var _a, _b, _c, _d, _e, _f;
 
               if (((_a = err.error) === null || _a === void 0 ? void 0 : _a.data) != null && ((_b = err.error) === null || _b === void 0 ? void 0 : _b.data) != undefined) {
                 if (typeof err.error.data == 'object') {
@@ -388,11 +388,11 @@
                   }
                 }
               } else {
-                var error = err.error || ((_c = err.error) === null || _c === void 0 ? void 0 : _c.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
+                var error = ((_c = err === null || err === void 0 ? void 0 : err.error) === null || _c === void 0 ? void 0 : _c.message) ? (_d = err === null || err === void 0 ? void 0 : err.error) === null || _d === void 0 ? void 0 : _d.message : 'Something went wrong';
 
-                _this2.commonService.openDialog('error', 'Something went wrong');
+                _this2.commonService.openDialog('error', error);
 
-                console.log("Err cal", err);
+                console.log("Err cal", err, 'Errrrrr msg', error);
               }
 
               if (err.status === 401) {
@@ -403,7 +403,7 @@
                 _this2.router.navigate(['/login']);
               }
 
-              var error = ((_d = err.error) === null || _d === void 0 ? void 0 : _d.error_description) || ((_e = err.error) === null || _e === void 0 ? void 0 : _e.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
+              var error = ((_e = err.error) === null || _e === void 0 ? void 0 : _e.error_description) || ((_f = err.error) === null || _f === void 0 ? void 0 : _f.message) || err.statusText || (err === null || err === void 0 ? void 0 : err.message);
               return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
             }));
           }
@@ -633,6 +633,7 @@
         // { path: 'maps', loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule) },
         {
           path: 'pages',
+          canActivate: [src_app_helpers_auth_guard__WEBPACK_IMPORTED_MODULE_0__["AuthGuard"]],
           loadChildren: function loadChildren() {
             return Promise.all(
             /*! import() | pages-pages-module */
