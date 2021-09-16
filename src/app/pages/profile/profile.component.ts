@@ -2,10 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { CountryISO, SearchCountryField, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/app/services/common/common.service';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
+import { allCountries } from 'src/app/_helpers/country';
+
 @Component({
   templateUrl: 'profile.component.html',
   styleUrls: ['./profile.scss']
@@ -20,11 +23,11 @@ export class ProfileComponent implements OnInit{
     isLoading: boolean;
     profileImageId: any;
     AdminId: any;
-    // selectedCountry : any = CountryISO.India;
-    // SearchCountryField = SearchCountryField;
-    // CountryISO = CountryISO;
-    // PhoneNumberFormat = PhoneNumberFormat;
-    // preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+    selectedCountry : any = CountryISO.India;
+    SearchCountryField = SearchCountryField;
+    CountryISO = CountryISO;
+    PhoneNumberFormat = PhoneNumberFormat;
+    preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
     
     constructor(private service:ShareableService,private router:Router,private fb:FormBuilder,private toaster:ToastrService) {
     this.AdminId= JSON.parse(sessionStorage.getItem(environment.TokenValue)).id;
@@ -35,8 +38,7 @@ export class ProfileComponent implements OnInit{
         address:['',[Validators.required]],
         firstName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
         lastName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
-        phoneNo:['',[Validators.required,Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
-        ,Validators.maxLength(15),Validators.minLength(7)]],
+        phoneNo:['',[Validators.required]],
         email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
    })
       this.GetVendorProfile()
@@ -51,11 +53,11 @@ export class ProfileComponent implements OnInit{
        this.ProfileImageUrl =  res?.data?.image?.media_file_url
        this.lat = Number(this.VendorDetails?.latitude)
        this.lng = Number(this.VendorDetails?.longitude)
-      //  let findIndex = allCountries.find(x=>{
-      //   const phone = res?.data?.country_code?.split('+');
-      //   return x[2] == phone[1].trim();
-      // })
-      // this.selectedCountry = (findIndex != undefined)?findIndex[1]:CountryISO.India;
+       let findIndex = allCountries.find(x=>{
+        const phone = res?.data?.country_code?.split('+');
+        return x[2] == phone[1].trim();
+      })
+      this.selectedCountry = (findIndex != undefined)?findIndex[1]:CountryISO.India;
     }
       })
     }
@@ -104,7 +106,8 @@ export class ProfileComponent implements OnInit{
             "id": this.AdminId,
             "first_name": this.ProfileForm.value.firstName,
             "last_name": this.ProfileForm.value.lastName,
-            "phone_no": this.ProfileForm.value.phoneNo,
+            "phone_no":this.ProfileForm.controls['phoneNo'].value?.number?this.ProfileForm.controls['phoneNo'].value?.number?.replace(/ /g,''):null,
+            "country_code":this.ProfileForm.controls['phoneNo'].value?.dialCode?this.ProfileForm.controls['phoneNo'].value?.dialCode:null,
             "email": this.ProfileForm.value.email,
             "address": this.ProfileForm.value.address,
             "image": this.profileImageId,

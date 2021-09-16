@@ -82,6 +82,8 @@ import { FiltersComponent } from './filters/filters.component';
 import { AboutappComponent } from './aboutapp/aboutapp.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
 
 @NgModule({
   imports: [
@@ -106,8 +108,9 @@ CommonModule,
     DragDropModule,
     NgxSpinnerModule,
     MatNativeDateModule,
-    GooglePlaceModule
-
+    GooglePlaceModule,
+    AgmCoreModule,
+    NgxIntlTelInputModule,
   ],
   declarations: [
     HelperclassesComponent,

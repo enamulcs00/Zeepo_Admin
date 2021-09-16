@@ -148,3 +148,11 @@ input[type=number] {
     background: #fff;
     padding: 10px;
 } */
+.iti{
+    width: -webkit-fill-available;
+    
+}
+
+.iti--allow-dropdown input, .iti--allow-dropdown input[type=text], .iti--allow-dropdown input[type=tel]{
+    height: 37px;
+}

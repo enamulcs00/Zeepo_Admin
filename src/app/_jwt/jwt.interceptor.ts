@@ -16,7 +16,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentUser = JSON.parse(sessionStorage.getItem(environment.TokenValue));
-    console.log("JWT called",currentUser);
+    
     
   this.spinner.show();
   if (currentUser && currentUser.token) {

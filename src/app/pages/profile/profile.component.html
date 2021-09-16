@@ -119,24 +119,28 @@
                                         <input type="password" value="password" class="form-control form-control-line">
                                     </div>
                                 </div> -->
-                                <div class="col-12 form-group">
+                                <div class="col-12 form-group has-success">
                                     <label class="col-md-12">Phone number</label>
                                     <div class="col-md-12">
-                                        <input type="text" max="15" placeholder="Enter phone number" class="form-control form-control-line" formControlName="phoneNo">
-                                        <span *ngIf="ProfileForm.get('phoneNo').hasError('required') && ProfileForm.get('phoneNo').touched" class="error">
-                                            Please enter phone number.
-                                          </span>
-                                        <span *ngIf="ProfileForm.get('phoneNo').hasError('pattern')" class="error">
-                                            Phone number is Invaid.
-                                          </span>
-                                          <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && ProfileForm.get('phoneNo').hasError('maxlength') && !ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Maxlength of phone number should be 15.
-                                          </span>
-                                          <span *ngIf="!ProfileForm.get('phoneNo').hasError('pattern') && !ProfileForm.get('phoneNo').hasError('maxlength') && ProfileForm.get('phoneNo').hasError('minlength')" class="error">
-                                            Minlength of phone number should be 7.
-                                          </span>
+                                        <ngx-intl-tel-input
+                                [cssClass]="'form-control form-control-lg'"
+                                [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                                [enableAutoCountrySelect]="false"
+                                [enablePlaceholder]="true"
+                                [separateDialCode]="true"
+                                [searchCountryFlag]="true"
+                                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                [selectFirstCountry]="false"
+                                [selectedCountryISO]="selectedCountry"
+                                [phoneValidation]="true"
+                                [maxLength]="15"
+                                [inputId]="'my-input-id'"
+                                name="phoneNo"
+                                formControlName="phoneNo"
+                            ></ngx-intl-tel-input><br>
+                            <span class="error" *ngIf="ProfileForm.get('phoneNo').hasError('required') && ProfileForm.get('phoneNo').touched">Please enter phone number.</span>
+                                    <span class="error" *ngIf="ProfileForm.get('phoneNo').hasError('validatePhoneNumber')">Invalid phone number.</span>
                                     </div>
-                                
                                 </div>
                                 <!-- <div class="col-12 form-group">
                                    

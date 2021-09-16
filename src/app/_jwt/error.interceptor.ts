@@ -18,6 +18,8 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       return next.handle(request).pipe(
           tap((data: any) => {
+            console.log("Err cal",data);
+            
               if (data.body && data.body.code == 400) {
                 this.commonService.openDialog('error',data.body.message);
                   return Observable.throw(data.body.message);
@@ -39,6 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   });
                   if(errr != ''){
                     this.commonService.openDialog('error',errr);
+                  
                   
                   }
               }
