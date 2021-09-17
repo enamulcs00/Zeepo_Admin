@@ -45211,7 +45211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_google_places_autocomplete__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-google-places-autocomplete */ "./node_modules/ngx-google-places-autocomplete/__ivy_ngcc__/bundles/ngx-google-places-autocomplete.umd.js");
 /* harmony import */ var ngx_google_places_autocomplete__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ngx_google_places_autocomplete__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-intl-tel-input */ "./node_modules/ngx-intl-tel-input/__ivy_ngcc__/fesm2015/ngx-intl-tel-input.js");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/__ivy_ngcc__/fesm2015/ngx-toastr.js");
+/* harmony import */ var src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/common/common.service */ "./src/app/services/common/common.service.ts");
 /* harmony import */ var src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/_helpers/shareable.service */ "./src/app/_helpers/shareable.service.ts");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 /* harmony import */ var src_app_helpers_country__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/_helpers/country */ "./src/app/_helpers/country.ts");
@@ -45496,11 +45496,11 @@ function ProfileComponent_ng_template_40_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
 class ProfileComponent {
-    constructor(service, router, fb, toaster) {
+    constructor(service, router, fb, cm) {
         this.service = service;
         this.router = router;
         this.fb = fb;
-        this.toaster = toaster;
+        this.cm = cm;
         this.lat = 40.7127753;
         this.lng = -74.0059728;
         this.selectedCountry = ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_4__["CountryISO"].India;
@@ -45595,7 +45595,7 @@ class ProfileComponent {
             this.service.put(`user/update-user-details/${this.AdminId}/`, obj).subscribe((res) => {
                 this.GetVendorProfile();
                 this.service.subject.next(true);
-                this.toaster.success("Profile updated successfully.", "Success!");
+                // this.toaster.success("Profile updated successfully.", "Success!");
                 this.router.navigate(['/dashboard']);
                 this.isLoading = false;
             }, _ => {
@@ -45607,7 +45607,7 @@ class ProfileComponent {
         }
     }
 }
-ProfileComponent.ɵfac = function ProfileComponent_Factory(t) { return new (t || ProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_6__["ShareableService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"])); };
+ProfileComponent.ɵfac = function ProfileComponent_Factory(t) { return new (t || ProfileComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_6__["ShareableService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"])); };
 ProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ProfileComponent, selectors: [["ng-component"]], viewQuery: function ProfileComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
     } if (rf & 2) {
@@ -45704,7 +45704,7 @@ ProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
                 templateUrl: 'profile.component.html',
                 styleUrls: ['./profile.scss']
             }]
-    }], function () { return [{ type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_6__["ShareableService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"] }]; }, { placesRef: [{
+    }], function () { return [{ type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_6__["ShareableService"] }, { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }, { type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"] }, { type: src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"] }]; }, { placesRef: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ["placeRef"]
         }] }); })();

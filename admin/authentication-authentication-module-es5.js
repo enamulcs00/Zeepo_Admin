@@ -1109,31 +1109,25 @@
       /* harmony import */
 
 
-      var ngx_toastr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! ngx-toastr */
-      "./node_modules/ngx-toastr/__ivy_ngcc__/fesm2015/ngx-toastr.js");
-      /* harmony import */
-
-
-      var src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/app/services/common/common.service */
       "./src/app/services/common/common.service.ts");
       /* harmony import */
 
 
-      var src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! src/app/_helpers/shareable.service */
       "./src/app/_helpers/shareable.service.ts");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/environments/environment */
       "./src/environments/environment.ts");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/common */
       "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -1254,17 +1248,16 @@
       }
 
       var changepasswordComponent = /*#__PURE__*/function () {
-        function changepasswordComponent(fb, router, service, toaster, com) {
+        function changepasswordComponent(fb, router, service, com) {
           _classCallCheck(this, changepasswordComponent);
 
           this.fb = fb;
           this.router = router;
           this.service = service;
-          this.toaster = toaster;
           this.com = com;
           this.ChangePasswordToute = "user/update-password/";
           this.IsToken = false;
-          this.currentUser = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].TokenValue));
+          this.currentUser = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue));
         }
 
         _createClass(changepasswordComponent, [{
@@ -1338,7 +1331,7 @@
       }();
 
       changepasswordComponent.ɵfac = function changepasswordComponent_Factory(t) {
-        return new (t || changepasswordComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_5__["ShareableService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]));
+        return new (t || changepasswordComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_4__["ShareableService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]));
       };
 
       changepasswordComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -1478,7 +1471,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.PhoneSignupForm.get("cnfPassword").hasError("mustMatch"));
           }
         },
-        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_7__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"]],
+        directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"]],
         styles: [".error[_ngcontent-%COMP%] {\n  color: red;\n  padding-left: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXV0aGVudGljYXRpb24vbG9jay9jaG5nLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxVQUFVO0VBQ1Ysa0JBQWtCO0FBQ3RCIiwiZmlsZSI6InNyYy9hcHAvYXV0aGVudGljYXRpb24vbG9jay9jaG5nLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZXJyb3J7XG4gICAgY29sb3I6IHJlZDtcbiAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XG59Il19 */"]
       });
       /*@__PURE__*/
@@ -1497,11 +1490,9 @@
           }, {
             type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
           }, {
-            type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_5__["ShareableService"]
+            type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_4__["ShareableService"]
           }, {
-            type: ngx_toastr__WEBPACK_IMPORTED_MODULE_3__["ToastrService"]
-          }, {
-            type: src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"]
+            type: src_app_services_common_common_service__WEBPACK_IMPORTED_MODULE_3__["CommonService"]
           }];
         }, null);
       })();
@@ -2093,6 +2084,7 @@
           this.otpform = false;
           this.submitted = false;
           this.isRememberMeChecked = false;
+          this.SetFormIFRememberMe();
         }
 
         _createClass(Login2Component, [{
@@ -2103,21 +2095,6 @@
               password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
               rememberMe: [false]
             });
-            var rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
-
-            if (!(rememberMe == null || rememberMe == undefined || rememberMe == '')) {
-              this.loginForm.controls['rememberMe'].patchValue(rememberMe);
-
-              if (rememberMe == true) {
-                var remembermeDetails = JSON.parse(localStorage.getItem('userEmail_pass'));
-                this.loginForm.patchValue({
-                  email: remembermeDetails.email,
-                  password: remembermeDetails.password
-                });
-              }
-            } else {
-              this.loginForm.controls['rememberMe'].patchValue(false);
-            }
           }
         }, {
           key: "omitSpace",
@@ -2126,17 +2103,6 @@
 
             if (keyCode == 32) {
               return false;
-            }
-          }
-        }, {
-          key: "RememberMe",
-          value: function RememberMe(isRemember, param) {
-            localStorage.setItem('rememberMe', this.loginForm.value.rememberMe);
-
-            if (isRemember == true) {
-              localStorage.setItem('userEmail_pass', JSON.stringify(param));
-            } else {
-              localStorage.removeItem('userEmail_pass');
             }
           }
         }, {
@@ -2163,9 +2129,28 @@
 
                   _this5.router.navigateByUrl('/dashboard');
 
-                  _this5.RememberMe(_this5.loginForm.value.rememberMe, params);
+                  _this5.RememberMe(_this5.loginForm.value.rememberMe, _this5.loginForm.value);
                 }
               });
+            }
+          }
+        }, {
+          key: "RememberMe",
+          value: function RememberMe(isRemember, param) {
+            if (isRemember == true) {
+              localStorage.setItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].RememberMe, JSON.stringify(param));
+            } else {
+              localStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].RememberMe);
+            }
+          }
+        }, {
+          key: "SetFormIFRememberMe",
+          value: function SetFormIFRememberMe() {
+            if (localStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].RememberMe)) {
+              var userDetails = JSON.parse(localStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].RememberMe));
+              this.loginForm.controls['email'].setValue(userDetails.email);
+              this.loginForm.controls['password'].setValue(userDetails.password);
+              this.loginForm.controls['rememberMe'].setValue(userDetails.rememberMe);
             }
           }
         }, {

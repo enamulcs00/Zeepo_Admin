@@ -26,49 +26,23 @@ export class Login2Component implements OnInit{
   otpValue: any;
 
   constructor(private http: HttpService, private cm: CommonService, private fb: FormBuilder, private router: Router,private service:ShareableService,private apiList: apilist) {
-      
-   }
-
+    this.SetFormIFRememberMe()
+  }
    ngOnInit(){
-
-    this.loginForm = this.fb.group({
+     this.loginForm = this.fb.group({
       email: ['', [Validators.required,Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]],
       password: ['', [Validators.required]],
       rememberMe: [false]
     })
-    var rememberMe = JSON.parse(localStorage.getItem('rememberMe'));
-  if (!(rememberMe == null || rememberMe == undefined || rememberMe == '')) {
-    this.loginForm.controls['rememberMe'].patchValue(rememberMe);
-    if (rememberMe == true) {
-      var remembermeDetails = JSON.parse(localStorage.getItem('userEmail_pass'));
-      this.loginForm.patchValue({
-        email: remembermeDetails.email,
-        password: remembermeDetails.password,
-      })
-    }
-  } else {
-    this.loginForm.controls['rememberMe'].patchValue(false);
-  }
    }
    
   get f() { return this.loginForm.controls; }
-
   omitSpace(event){
     var keyCode = event.which ? event.which : event.keyCode           
     if (keyCode == 32) {
       return false;
     }
   }
-
-  RememberMe(isRemember, param) {
-    localStorage.setItem('rememberMe', this.loginForm.value.rememberMe);
-    if (isRemember == true) {
-      localStorage.setItem('userEmail_pass', JSON.stringify(param));
-    } else {
-      localStorage.removeItem('userEmail_pass');
-    }
-  }
-
   submit() {
     this.submitted=true;
     var params={
@@ -84,19 +58,32 @@ export class Login2Component implements OnInit{
                 sessionStorage.setItem(environment.TokenValue,JSON.stringify(res?.data));
                   this.cm.presentsToast('success', 'top-end', res.message);
                   this.router.navigateByUrl('/dashboard');
-                  this.RememberMe(this.loginForm.value.rememberMe, params);
+                  this.RememberMe(this.loginForm.value.rememberMe, this.loginForm.value);
                 }
               })
             }
           }
+          RememberMe(isRemember, param) {
+            if (isRemember == true) {
+              localStorage.setItem(environment.RememberMe, JSON.stringify(param));
+            } else {
+              localStorage.removeItem(environment.RememberMe);
+            }
+          }
+            SetFormIFRememberMe(){
+            if(localStorage.getItem(environment.RememberMe)){
+              let userDetails = JSON.parse(localStorage.getItem(environment.RememberMe)); 
+              this.loginForm.controls['email'].setValue(userDetails.email);
+              this.loginForm.controls['password'].setValue(userDetails.password);
+              this.loginForm.controls['rememberMe'].setValue(userDetails.rememberMe);
+            }
+          }
 
-  
-
-  showRecoverForm() {
+ showRecoverForm() {
     this.loginform = !this.loginform;
     this.recoverform = !this.recoverform;
     this.ForgotPasswordForm = this.fb.group({
-      email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
+    email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
     })
   }
   shownumbrForm() {

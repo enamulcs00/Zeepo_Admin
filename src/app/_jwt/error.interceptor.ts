@@ -46,9 +46,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                   }
               }
           }else {
-            var error = (err?.error?.message)?err?.error?.message:'Something went wrong'
+            var error = (err?.error?.message || err.statusText)?err?.error?.message || err.statusText:'Server not responding'
             this.commonService.openDialog('error',error);
-            console.log("Err cal",err,'Errrrrr msg',error);
+            console.log("Err cal",err,'Errrrrr msg',error,err.statusText);
         }
               if (err.status === 401) {
                 this.commonService.openDialog('error','Not authorized');
