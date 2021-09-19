@@ -1,186 +1,126 @@
 <div class="card">
     <div class="card-body">
-        <form action="#">
+        <form [formGroup]="SubadminForm" #inputMessage >
             <div class="form-body">
-                <div class="card-body">
-                    <div class="row p-t-20">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Name</label>
-                                <input type="text" id="firstName" class="form-control" placeholder="John doe">
-
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group has-success">
-                                <div class="form-group">
-                                    <label class="control-label">Upload Profile</label>
-                                    <div class="custom-file"><input class="custom-file-input" id="inputGroupFile01" type="file"><label class="custom-file-label" for="inputGroupFile01">Choose file</label></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
+              <div class="card-body">
+                <div class="row p-t-20">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">First name</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="Enter first name" formControlName="firstName" #name (keydown.space)="!name.value?$event.preventDefault():null">
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('required') && SubadminForm.get('firstName').touched">Please enter first name.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('maxlength') && !SubadminForm.get('firstName').hasError('pattern')">Maxlength should 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('minlength') && !SubadminForm.get('firstName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('firstName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
-                    <!--/row-->
-                    <div class="row ">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label">Contact No</label>
-                                <input type="text" id="firstName" class="form-control" placeholder="Contact No.">
-
-                            </div>
-                        </div>
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group has-danger">
-                                <label class="control-label">Email</label>
-                                <input type="email" id="email" class="form-control form-control-danger" placeholder="example@gmail.com">
-
-                            </div>
-                        </div>
-                        <!--/span-->
+                  </div>
+        
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Last name</label>
+                      <input type="text" id="firstName" class="form-control" placeholder="Enter last name" formControlName="lastName" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('required') && SubadminForm.get('lastName').touched">Please enter last name.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('maxlength') && !SubadminForm.get('lastName').hasError('pattern')">Maxlength should 30.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('minlength') && !SubadminForm.get('lastName').hasError('pattern')">Minlength should 3.</span>
+                      <span class="error" *ngIf="SubadminForm.get('lastName').hasError('pattern')">Please enter aplhabet only.</span>
                     </div>
-                    <!--/row-->
-                    <div class="table-responsive mt-3">
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Add/Edit</th>
-                                <th>View</th>
-
-                            </tr>
-                            <tbody>
-                                <tr>
-                                    <td>Dashboard</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck1" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck1"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck2" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck2"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Users</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck3" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck4" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck4"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Leads</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck5" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck5"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck6" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck6"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Filters</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck8" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck8"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck9" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck9"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Analytics </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck10" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck10"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck11" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck11"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sub-Admin </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck24" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck24"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck25" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck25"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Customer Support</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck16" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck16"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck17" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck17"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>CMS Pages </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck18" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck18"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input" id="customCheck19" type="checkbox">
-                                            <label class="custom-control-label" for="customCheck19"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Phone number</label>
+                        <ngx-intl-tel-input
+                        [cssClass]="'form-control form-control-lg'"
+                        [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                        [enableAutoCountrySelect]="false"
+                        [enablePlaceholder]="true"
+                        [separateDialCode]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false"
+                        [selectedCountryISO]="selectedCountry"
+                        [phoneValidation]="true"
+                        [maxLength]="15"
+                        [inputId]="'my-input-id'"
+                        name="phoneNo"
+                        formControlName="phoneNo"
+                      
+                    ></ngx-intl-tel-input><br>
+    <span class="error" *ngIf="SubadminForm.get('phoneNo').hasError('required') && SubadminForm.get('phoneNo').touched">Please enter phone number.</span>
+    <span class="error" *ngIf="SubadminForm.get('phoneNo').hasError('validatePhoneNumber')">Invalid phone number.</span>
                     </div>
-                    <div class="form-actions ">
-                        <button type="submit" class="btn btn-success mr-3">
-                        <i class="fa fa-check"></i> Save</button>
+                  </div>
+        
+                  <div class="col-md-6">
+                    <div class="form-group has-success">
+                      <div class="form-group">
+                        <label class="control-label">Upload Profile</label>
+                        <div class="custom-file"><input class="custom-file-input" (change)="uploadFile($event)" id="inputGroupFile01" type="file"><label
+                            class="custom-file-label text-truncate" for="inputGroupFile01">{{profileUrl?profileUrl:'Choose file'}}</label></div>
+                      </div>
                     </div>
-                    <!--/row-->
+                  </div>
+                 
                 </div>
+             
+                <div class="row ">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Password</label>
+                      <input type="password" id="firstName" class="form-control" formControlName="password" placeholder="Enter password">
+                      <span class="error" *ngIf="SubadminForm.get('password').hasError('required') && SubadminForm.get('password').touched">Please enter password.</span>
+                      <span class="error" *ngIf="SubadminForm.get('password').hasError('minlength')">Minlength should be 8.</span>
+                    </div>
+                  </div>
+                  <!--/span-->
+                  <div class="col-md-6">
+                    <div class="form-group has-danger">
+                      <label class="control-label">Email</label>
+                      <input type="email" id="email" formControlName="email" #na (keydown.space)="!na.value?$event.preventDefault():null" class="form-control form-control-danger"
+                        placeholder="Enter email id">
+                        <span class="error" *ngIf="SubadminForm.get('email').hasError('required') && SubadminForm.get('email').touched">Please enter email.</span>
+                        <span class="error" *ngIf="SubadminForm.get('email').hasError('pattern')">Please enter valid email.</span>
+                    </div>
+                  </div>
+                  <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="table-responsive mt-3">
+                    <table class="table">
+                        <tr>
+                            <th>Name</th>
+                            <th class="text-nowrap">Add/Edit/delete</th>
+                            <th>View</th>
+                            
+                        </tr>
+                        <tbody>
+                            
+                                <tr *ngFor="let data of permissionArray; index as i">
+                                    <td>
+                                        {{data?.label}}
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" [id]="data?.label" [disabled]=" data.label=='Dashboard'" (change)="check(data)" [(ngModel)]="data.is_add_edit" [ngModelOptions]="{standalone: true}">
+                                        <label class="custom-control-label" [for]="data?.label"></label>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"  [id]="data?.label+'x'" [disabled]=" data.is_add_edit || data.label=='Dashboard'" [(ngModel)]="data.is_view" [ngModelOptions]="{standalone: true}">
+                                        <label class="custom-control-label" [for]="data?.label+'x'"></label>
+                                    </div> 
+                                    </td>
+                                  </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-actions ">
+                    <button type="submit" class="btn btn-success mr-3" (click)="SaveData()">
+                        <i class="fa fa-check"></i> Save</button>
+                  </div>
+                <!--/row-->                
+              </div>
             </div>
-        </form>
+          </form>
     </div>
 </div>
