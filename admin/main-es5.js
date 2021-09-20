@@ -363,7 +363,7 @@
 
             return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])(function (data) {
               if (data.body && data.body.code == 400) {
-                _this2.commonService.openDialog('error', data.body.message);
+                _this2.commonService.presentsToast('error', 'top-end', data.body.message);
 
                 return rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"]["throw"](data.body.message);
               } else {
@@ -384,19 +384,19 @@
                   });
 
                   if (errr != '') {
-                    _this2.commonService.openDialog('error', errr);
+                    _this2.commonService.presentsToast('error', 'top-end', errr);
                   }
                 }
               } else {
                 var error = ((_c = err === null || err === void 0 ? void 0 : err.error) === null || _c === void 0 ? void 0 : _c.message) || err.statusText ? ((_d = err === null || err === void 0 ? void 0 : err.error) === null || _d === void 0 ? void 0 : _d.message) || err.statusText : 'Server not responding';
 
-                _this2.commonService.openDialog('error', error);
+                _this2.commonService.presentsToast('error', 'top-end', error);
 
                 console.log("Err cal", err, 'Errrrrr msg', error, err.statusText);
               }
 
               if (err.status === 401) {
-                _this2.commonService.openDialog('error', 'Not authorized');
+                _this2.commonService.presentsToast('error', 'top-end', 'Not authorized');
 
                 sessionStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].TokenValue);
 
@@ -2188,23 +2188,45 @@
       /* harmony import */
 
 
-      var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! src/environments/environment */
+      "./src/environments/environment.ts");
+      /* harmony import */
+
+
+      var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! sweetalert2 */
       "./node_modules/sweetalert2/dist/sweetalert2.all.js");
       /* harmony import */
 
 
-      var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+      var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
 
       var CommonService = /*#__PURE__*/function () {
         function CommonService() {
           _classCallCheck(this, CommonService);
+
+          this.permissions = {
+            dashboard: 1,
+            users: 2,
+            walkthrough: 3,
+            banks: 4,
+            manage_update: 5,
+            notification: 6,
+            customer_support: 7,
+            wallet_address: 8,
+            request: 9,
+            analytics: 10,
+            rate_change: 11,
+            refer_and_earn: 12,
+            manage_sub_admin: 13
+          };
         }
 
         _createClass(CommonService, [{
           key: "presentsToast",
           value: function presentsToast(type, position, message) {
-            var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+            var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.mixin({
               toast: true,
               position: position,
               timerProgressBar: true,
@@ -2221,7 +2243,7 @@
         }, {
           key: "confirmToast",
           value: function confirmToast() {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
               title: 'Are you sure?',
               text: "You won't be able to revert this!",
               icon: 'warning',
@@ -2231,14 +2253,14 @@
               confirmButtonText: 'Yes, delete it!'
             }).then(function (result) {
               if (result.value) {
-                sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Deleted!', 'Your file has been deleted.', 'success');
+                sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Deleted!', 'Your file has been deleted.', 'success');
               }
             });
           }
         }, {
           key: "openDialog",
           value: function openDialog(type, message) {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
               title: 'Error!',
               text: message,
               icon: type,
@@ -2280,6 +2302,28 @@
           key: "noSpace",
           value: function noSpace(event) {
             if (event.which === 32 && !event.target.value.length) event.preventDefault();
+          }
+        }, {
+          key: "checkPermission",
+          value: function checkPermission(name, type) {
+            var _this4 = this;
+
+            var userInfo = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].TokenValue));
+            var permissions = userInfo.permissions;
+
+            if (permissions.length > 0) {
+              var check = permissions.find(function (x) {
+                return x.module.id == _this4.permissions[name];
+              });
+
+              if (check != undefined && check[type == 'view' ? 'is_view' : 'is_add_edit']) {
+                return true;
+              } else {
+                return false;
+              }
+            }
+
+            return true;
           }
         }]);
 
@@ -2384,7 +2428,7 @@
 
       var BreadcrumbComponent = /*#__PURE__*/function () {
         function BreadcrumbComponent(router, activatedRoute, titleService) {
-          var _this4 = this;
+          var _this5 = this;
 
           _classCallCheck(this, BreadcrumbComponent);
 
@@ -2394,7 +2438,7 @@
           this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["filter"])(function (event) {
             return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"];
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function () {
-            return _this4.activatedRoute;
+            return _this5.activatedRoute;
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (route) {
             while (route.firstChild) {
               route = route.firstChild;
@@ -2406,9 +2450,9 @@
           })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (route) {
             return route.data;
           })).subscribe(function (event) {
-            _this4.titleService.setTitle(event['title']);
+            _this5.titleService.setTitle(event['title']);
 
-            _this4.pageInfo = event;
+            _this5.pageInfo = event;
           });
         }
 
@@ -4023,7 +4067,7 @@
 
       var SpinnerComponent = /*#__PURE__*/function () {
         function SpinnerComponent(router, document) {
-          var _this5 = this;
+          var _this6 = this;
 
           _classCallCheck(this, SpinnerComponent);
 
@@ -4033,12 +4077,12 @@
           this.backgroundColor = 'rgba(0, 115, 170, 0.69)';
           this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
-              _this5.isSpinnerVisible = true;
+              _this6.isSpinnerVisible = true;
             } else if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationCancel"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationError"]) {
-              _this5.isSpinnerVisible = false;
+              _this6.isSpinnerVisible = false;
             }
           }, function () {
-            _this5.isSpinnerVisible = false;
+            _this6.isSpinnerVisible = false;
           });
         }
 

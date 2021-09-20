@@ -1139,7 +1139,6 @@ class Login2Component {
         this.otpform = false;
         this.submitted = false;
         this.isRememberMeChecked = false;
-        this.SetFormIFRememberMe();
     }
     ngOnInit() {
         this.loginForm = this.fb.group({
@@ -1147,6 +1146,7 @@ class Login2Component {
             password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
             rememberMe: [false]
         });
+        this.SetFormIFRememberMe();
     }
     get f() { return this.loginForm.controls; }
     omitSpace(event) {

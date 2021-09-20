@@ -21,7 +21,7 @@ export class ErrorInterceptor implements HttpInterceptor {
        
             
               if (data.body && data.body.code == 400) {
-                this.commonService.openDialog('error',data.body.message);
+                this.commonService.presentsToast('error','top-end',data.body.message);
                   return Observable.throw(data.body.message);
               } else {
                   return data.body;
@@ -40,18 +40,18 @@ export class ErrorInterceptor implements HttpInterceptor {
                       }
                   });
                   if(errr != ''){
-                    this.commonService.openDialog('error',errr);
+                    this.commonService.presentsToast('error','top-end',errr);
                    
                   
                   }
               }
           }else {
             var error = (err?.error?.message || err.statusText)?err?.error?.message || err.statusText:'Server not responding'
-            this.commonService.openDialog('error',error);
+            this.commonService.presentsToast('error','top-end',error);
             console.log("Err cal",err,'Errrrrr msg',error,err.statusText);
         }
               if (err.status === 401) {
-                this.commonService.openDialog('error','Not authorized');
+                this.commonService.presentsToast('error','top-end','Not authorized');
                  sessionStorage.removeItem(environment.TokenValue);
                   this.router.navigate(['/login']);
               }

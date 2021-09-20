@@ -26,7 +26,7 @@ export class Login2Component implements OnInit{
   otpValue: any;
 
   constructor(private http: HttpService, private cm: CommonService, private fb: FormBuilder, private router: Router,private service:ShareableService,private apiList: apilist) {
-    this.SetFormIFRememberMe()
+    
   }
    ngOnInit(){
      this.loginForm = this.fb.group({
@@ -34,6 +34,7 @@ export class Login2Component implements OnInit{
       password: ['', [Validators.required]],
       rememberMe: [false]
     })
+    this.SetFormIFRememberMe()
    }
    
   get f() { return this.loginForm.controls; }

@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit{
       this.ProfileForm = this.fb.group({
         address:['',[Validators.required]],
         firstName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
-        lastName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
+        // lastName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(30),Validators.pattern(/^[a-zA-Z ]*$/i)]],
         phoneNo:['',[Validators.required]],
         email:['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
    })
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit{
     }
     SetValueInForm(obj){
     this.ProfileForm.controls['firstName'].setValue(obj?.first_name)
-    this.ProfileForm.controls['lastName'].setValue(obj?.last_name)
+    // this.ProfileForm.controls['lastName'].setValue(obj?.last_name)
     this.ProfileForm.controls['address'].setValue(obj?.address)
     this.ProfileForm.controls['phoneNo'].setValue(obj?.phone_no?obj?.phone_no:null)
     this.ProfileForm.controls['email'].setValue(obj?.email?obj?.email:null)
@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit{
       let obj = {
             "id": this.AdminId,
             "first_name": this.ProfileForm.value.firstName,
-            "last_name": this.ProfileForm.value.lastName,
+            // "last_name": this.ProfileForm.value.lastName,
             "phone_no":this.ProfileForm.controls['phoneNo'].value?.number?this.ProfileForm.controls['phoneNo'].value?.number?.replace(/ /g,''):null,
             "country_code":this.ProfileForm.controls['phoneNo'].value?.dialCode?this.ProfileForm.controls['phoneNo'].value?.dialCode:null,
             "email": this.ProfileForm.value.email,

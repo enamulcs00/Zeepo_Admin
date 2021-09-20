@@ -1,15 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonService } from 'src/app/services/common/common.service';
+import { ShareableService } from 'src/app/_helpers/shareable.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  constructor(private modalService: NgbModal) {}
+  timer: number;
+  SubAdminData: any;
+  count: any;
+  IsActive:any=true
+  AdminId: any;
+  SearchValue: string = '';
+  page:number = 1
+  PageSize:number = 10
+  constructor(private modalService: NgbModal,private service:ShareableService,private cm:CommonService) {}
 
   ngOnInit(): void {
+    this.GetSubAdmin()
   }
 // This is for the first modal
 openWindowCustomClass(content3) {
@@ -41,5 +52,131 @@ private getDismissReason(reason: any): string {
   } else {
     return  `with: ${reason}`;
   }
+}
+Filter(event: any) {
+  window.clearTimeout(this.timer);
+  this.timer = window.setTimeout(() => {
+    let filterValue = (event.target as HTMLInputElement).value;
+    this.SearchValue=filterValue;
+   this.GetSubAdmin();
+  }, 1000)
+}
+DeleteAdmin(){
+  this.service.delete(`sub-admin/delete/${this.AdminId}/`).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      this.GetSubAdmin()
+      this.modalService.dismissAll()
+      this.cm.presentsToast('error','top-end','Sub admin deleted successfully')
+    }
+  })
+}
+onPaginateChange(e): PageEvent {
+  if (e.pageIndex == 0) {
+    this.page = e.pageIndex;
+  } else {
+    if (e.previousPageIndex < e.pageIndex) {
+      this.page =this.page+ e.pageSize;
+    } else {
+      this.page =this.page-e.pageSize;
+    }
+  }
+  this.PageSize = e.pageSize
+  this.GetSubAdmin();
+  return e;
+}
+FilterByStatus(ref){
+  this.SearchValue =''
+this.IsActive = ref
+ this.GetSubAdmin()
+}
+GetSubAdmin(){
+  let obj = {
+    "draw": 2,
+    "is_approved":true,
+    "is_active":this.IsActive,
+    "columns": [
+        {
+            "data": "first_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "last_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "phone_number",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "email",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "id",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        }
+    ],
+    "order": [
+        {
+            "column": 3,
+            "dir": "undefined"        }
+    ],
+    "start": this.page,
+    "length": this.PageSize,
+    "search": {
+        "value": this.SearchValue,
+        "regex": false
+    }
+}
+
+  this.service.post(`sub-admin/get-all-pagination-list/`,obj).subscribe((res:any)=>{
+  if([200,201].includes(res.code)){
+    console.log('Get subAdmin data',res);
+    this.SubAdminData = res?.data
+    this.count = res?.recordsTotal
+    
+}
+  })
+}
+changeStatus(event, id) {
+ 
+  const data = {
+    is_active: event.checked,
+  };
+  this.service.put(`sub-admin/change-status/${id}/`, data).subscribe((res: any) => {
+    if([200,201].includes(res.code)){
+   this.cm.presentsToast('success','top-end',event.checked?'Status Activated':'Status Deactivated')
+ }
+ });
 }
 }

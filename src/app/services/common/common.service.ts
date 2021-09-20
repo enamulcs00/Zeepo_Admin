@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -81,5 +82,32 @@ noSpace(event) {
   if (event.which === 32 && !event.target.value.length)
     event.preventDefault();
 }
-
+permissions = {
+  dashboard : 1,
+  users : 2,
+  walkthrough : 3,
+  banks: 4,
+  manage_update : 5,
+  notification : 6,
+  customer_support : 7,
+  wallet_address : 8,
+  request : 9,
+  analytics : 10,
+  rate_change : 11,
+  refer_and_earn : 12,
+  manage_sub_admin : 13
+}
+checkPermission(name : string, type) {
+  let userInfo = JSON.parse(sessionStorage.getItem(environment.TokenValue));
+  let permissions = userInfo.permissions;
+  if(permissions.length > 0) {
+    let check = permissions.find(x=> x.module.id == this.permissions[name]);
+    if(check != undefined && check[(type == 'view')?'is_view':'is_add_edit']){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  return true;
+ }
 }

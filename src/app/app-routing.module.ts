@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/_helpers/auth.guard';
 import { FullComponent } from './layouts/full/full.component';
 import { BlankComponent } from './layouts/blank/blank.component';
-
+import { PermissionsGuard } from 'src/app/_helpers/permissions.guard'
 
 export const Approutes: Routes = [
   {

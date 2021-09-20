@@ -193,7 +193,7 @@ class ErrorInterceptor {
     intercept(request, next) {
         return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["tap"])((data) => {
             if (data.body && data.body.code == 400) {
-                this.commonService.openDialog('error', data.body.message);
+                this.commonService.presentsToast('error', 'top-end', data.body.message);
                 return rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"].throw(data.body.message);
             }
             else {
@@ -212,17 +212,17 @@ class ErrorInterceptor {
                         }
                     });
                     if (errr != '') {
-                        this.commonService.openDialog('error', errr);
+                        this.commonService.presentsToast('error', 'top-end', errr);
                     }
                 }
             }
             else {
                 var error = (((_c = err === null || err === void 0 ? void 0 : err.error) === null || _c === void 0 ? void 0 : _c.message) || err.statusText) ? ((_d = err === null || err === void 0 ? void 0 : err.error) === null || _d === void 0 ? void 0 : _d.message) || err.statusText : 'Server not responding';
-                this.commonService.openDialog('error', error);
+                this.commonService.presentsToast('error', 'top-end', error);
                 console.log("Err cal", err, 'Errrrrr msg', error, err.statusText);
             }
             if (err.status === 401) {
-                this.commonService.openDialog('error', 'Not authorized');
+                this.commonService.presentsToast('error', 'top-end', 'Not authorized');
                 sessionStorage.removeItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].TokenValue);
                 this.router.navigate(['/login']);
             }
@@ -1086,14 +1086,33 @@ FullComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComp
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonService", function() { return CommonService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/__ivy_ngcc__/fesm2015/core.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
 class CommonService {
+    constructor() {
+        this.permissions = {
+            dashboard: 1,
+            users: 2,
+            walkthrough: 3,
+            banks: 4,
+            manage_update: 5,
+            notification: 6,
+            customer_support: 7,
+            wallet_address: 8,
+            request: 9,
+            analytics: 10,
+            rate_change: 11,
+            refer_and_earn: 12,
+            manage_sub_admin: 13
+        };
+    }
     presentsToast(type, position, message) {
-        const Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+        const Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.mixin({
             toast: true,
             position: position,
             timerProgressBar: true,
@@ -1108,7 +1127,7 @@ class CommonService {
         });
     }
     confirmToast() {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
             icon: 'warning',
@@ -1118,12 +1137,12 @@ class CommonService {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Deleted!', 'Your file has been deleted.', 'success');
+                sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire('Deleted!', 'Your file has been deleted.', 'success');
             }
         });
     }
     openDialog(type, message) {
-        sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
             title: 'Error!',
             text: message,
             icon: type,
@@ -1157,6 +1176,20 @@ class CommonService {
     noSpace(event) {
         if (event.which === 32 && !event.target.value.length)
             event.preventDefault();
+    }
+    checkPermission(name, type) {
+        let userInfo = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].TokenValue));
+        let permissions = userInfo.permissions;
+        if (permissions.length > 0) {
+            let check = permissions.find(x => x.module.id == this.permissions[name]);
+            if (check != undefined && check[(type == 'view') ? 'is_view' : 'is_add_edit']) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
     }
 }
 CommonService.ɵfac = function CommonService_Factory(t) { return new (t || CommonService)(); };

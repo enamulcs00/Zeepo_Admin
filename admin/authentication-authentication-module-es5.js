@@ -2084,7 +2084,6 @@
           this.otpform = false;
           this.submitted = false;
           this.isRememberMeChecked = false;
-          this.SetFormIFRememberMe();
         }
 
         _createClass(Login2Component, [{
@@ -2095,6 +2094,7 @@
               password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]],
               rememberMe: [false]
             });
+            this.SetFormIFRememberMe();
           }
         }, {
           key: "omitSpace",
