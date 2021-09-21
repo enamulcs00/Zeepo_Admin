@@ -46209,7 +46209,7 @@ class ProfileComponent {
             this.service.put(`user/update-user-details/${this.AdminId}/`, obj).subscribe((res) => {
                 this.GetVendorProfile();
                 this.service.subject.next(true);
-                // this.toaster.success("Profile updated successfully.", "Success!");
+                this.cm.presentsToast('success', 'top-end', "Profile updated successfully.");
                 this.router.navigate(['/dashboard']);
                 this.isLoading = false;
             }, _ => {
@@ -46298,7 +46298,7 @@ ProfileComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", ctx.ProfileImageUrl ? ctx.ProfileImageUrl : "assets/images/users/1.jpg", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("src", ctx.ProfileImageUrl ? ctx.ProfileImageUrl : "assets/images/users/plc.png", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"]((ctx.VendorDetails == null ? null : ctx.VendorDetails.first_name) + " " + (ctx.VendorDetails == null ? null : ctx.VendorDetails.last_name));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);

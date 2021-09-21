@@ -117,7 +117,7 @@ export class ProfileComponent implements OnInit{
       this.service.put(`user/update-user-details/${this.AdminId}/`, obj).subscribe((res:any) => {
         this.GetVendorProfile()
           this.service.subject.next(true)
-          // this.toaster.success("Profile updated successfully.", "Success!");
+         this.cm.presentsToast('success','top-end',"Profile updated successfully.");
           this.router.navigate(['/dashboard']);
           this.isLoading = false;
      
