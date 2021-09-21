@@ -12,7 +12,7 @@ export class AdminComponent implements OnInit {
   timer: number;
   SubAdminData: any;
   count: any;
-  IsActive:any=true
+  IsActive:any
   AdminId: any;
   SearchValue: string = '';
   page:number = 1
