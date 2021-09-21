@@ -969,10 +969,11 @@
         providers: [{
           provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_21__["PERFECT_SCROLLBAR_CONFIG"],
           useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        }, {
-          provide: _angular_common__WEBPACK_IMPORTED_MODULE_2__["LocationStrategy"],
-          useClass: _angular_common__WEBPACK_IMPORTED_MODULE_2__["HashLocationStrategy"]
-        }, // { 
+        }, // {
+        //     provide: LocationStrategy,
+        //     useClass: HashLocationStrategy
+        // },
+        // { 
         //     provide: HTTP_INTERCEPTORS, 
         //     useClass: InterceptorService, 
         //     multi: true },
@@ -1014,10 +1015,11 @@
             providers: [{
               provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_21__["PERFECT_SCROLLBAR_CONFIG"],
               useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-            }, {
-              provide: _angular_common__WEBPACK_IMPORTED_MODULE_2__["LocationStrategy"],
-              useClass: _angular_common__WEBPACK_IMPORTED_MODULE_2__["HashLocationStrategy"]
-            }, // { 
+            }, // {
+            //     provide: LocationStrategy,
+            //     useClass: HashLocationStrategy
+            // },
+            // { 
             //     provide: HTTP_INTERCEPTORS, 
             //     useClass: InterceptorService, 
             //     multi: true },
