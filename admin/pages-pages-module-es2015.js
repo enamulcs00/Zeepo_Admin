@@ -32353,7 +32353,7 @@ class ContactComponent {
             this.service.post(`admin/create-update-cms-details/`, this.TermConditionForm.value).subscribe((res) => {
                 if ([200, 201].includes(res.code)) {
                     this.GetTerms();
-                    this.cm.presentsToast('success', 'top-end', 'About us updated');
+                    this.cm.presentsToast('success', 'top-end', 'Contact us updated');
                 }
             });
         }
