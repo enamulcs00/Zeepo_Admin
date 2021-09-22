@@ -358,7 +358,7 @@ export const ROUTES: RouteInfo[] = [
     // },
         {
             path: '/pages/aboutapp',
-            title: 'About App',
+            title: 'About Us',
             icon: 'mdi mdi-cellphone',
             class: '',
             extralink: false,

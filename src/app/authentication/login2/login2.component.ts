@@ -57,7 +57,7 @@ export class Login2Component implements OnInit{
           this.http.post(this.apiList.login, params).subscribe((res: any) => {
               if (res.code == 200) {
                 sessionStorage.setItem(environment.TokenValue,JSON.stringify(res?.data));
-                  this.cm.presentsToast('success', 'top-end', res.message);
+                  this.cm.presentsToast('success', 'top-end', 'Logged in successfully');
                   this.router.navigateByUrl('/dashboard');
                   this.RememberMe(this.loginForm.value.rememberMe, this.loginForm.value);
                 }

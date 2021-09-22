@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Component, AfterViewInit, EventEmitter, Output, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   NgbModal,
@@ -7,6 +7,7 @@ import {
   NgbCarouselConfig
 } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { CommonService } from 'src/app/services/common/common.service';
 
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 import { environment } from 'src/environments/environment';
@@ -17,15 +18,25 @@ declare var $: any;
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements AfterViewInit {
+export class NavigationComponent implements AfterViewInit, OnInit{
   @Output() toggleSidebar = new EventEmitter<void>();
 
   public config: PerfectScrollbarConfigInterface = {};
 
   public showSearch = false;
   public element1: any;
-  constructor(private modalService: NgbModal,private router: Router,private service:ShareableService) {}
-
+  UserId: any;
+  userDetails: any;
+  ProfileImageUrl: any;
+  constructor(private modalService: NgbModal,private router: Router,private service:ShareableService,private cm:CommonService) {}
+ngOnInit(){
+  this.GetVendorProfile()
+  this.service.subject.subscribe(res => {
+    if (res == true) {
+      this.GetVendorProfile();
+    }
+  })
+}
   // This is for Notifications
   notifications: Object[] = [
     {
@@ -94,16 +105,15 @@ export class NavigationComponent implements AfterViewInit {
   }
 
   logout(){
-    sessionStorage.removeItem(environment.TokenValue);
-    this.router.navigate(['/login']);
-    // this.service.post(`auth/logout/`,'').subscribe((res:any)=>{
-    //   if([200,201].includes(res.code))
-    //   {
-    //    this.toaster.success("Logged out successuflly",'Logged out');
-    //    sessionStorage.removeItem(environment.TokenValue);
-    //    this.router.navigate(['/login']);
-    //   }
-    // })
+    this.service.post(`auth/logout/`,'').subscribe((res:any)=>{
+      if([200,201].includes(res.code))
+      {
+       this.cm.presentsToast('success','top-end',"Logged out successuflly");
+       sessionStorage.removeItem(environment.TokenValue);
+       this.router.navigate(['/login']);
+       this.modalService.dismissAll()
+      }
+    })
   }
 
   ngAfterViewInit() {}
@@ -115,5 +125,17 @@ export class NavigationComponent implements AfterViewInit {
   closeBox(){
     let element1 = document.getElementById("arrow-close").parentElement;
     element1.classList.remove("sidebar_slide");
+  }
+  GetVendorProfile(){
+    this.service.get(`user/get-user-details-by-token/`).subscribe((res:any)=>{
+      console.log('Nvae call profdile',res);
+      if([200,201].includes(res.code)){
+     this.userDetails = res.data;
+     this.ProfileImageUrl =   res?.data?.image?.media_file_url
+  }
+    })
+  }
+  LogoutModalModal(logoutModal) {
+    this.modalService.open(logoutModal, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
   }
 }

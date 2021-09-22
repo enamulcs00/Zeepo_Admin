@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class CommonService {
-
+  
   presentsToast(type: any, position: any, message: any) {
     const Toast = Swal.mixin({
       toast: true,

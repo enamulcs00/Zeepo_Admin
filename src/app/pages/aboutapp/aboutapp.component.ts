@@ -27,7 +27,7 @@ export class AboutappComponent implements OnInit {
         if([200,201].includes(res.code)){
           this.GetTerms()
           
-          this.cm.presentsToast('success', 'top-end', 'About app updated');
+          this.cm.presentsToast('success', 'top-end', 'About Us updated successfully');
         }
       })
     }else{

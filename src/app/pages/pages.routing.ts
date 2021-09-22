@@ -474,7 +474,7 @@ export const PagesRoutes: Routes = [
         path: 'manage_admin',
         component: AdminComponent,
         data: {
-          title: 'Admin',
+          title: 'Sub admin',
           urls: [
             { title: 'Dashboard', url: '/manage_admin' },
             { title: 'Profile' }
@@ -530,10 +530,10 @@ export const PagesRoutes: Routes = [
         path: 'contact',
         component: ContactComponent,
         data: {
-          title: 'Contact',
+          title: 'Contact Us',
           urls: [
             { title: 'Dashboard', url: '/contact' },
-            { title: 'Contact' }
+            { title: 'Contact Us' }
           ]
         }
       },
@@ -552,10 +552,10 @@ export const PagesRoutes: Routes = [
         path: 'privacy',
         component: PrivacyComponent,
         data: {
-          title: 'Privacy',
+          title: 'Privacy Policy',
           urls: [
             { title: 'Dashboard', url: '/privacy' },
-            { title: 'Privacy' }
+            { title: 'Privacy Policy' }
           ]
         }
       },
@@ -563,10 +563,10 @@ export const PagesRoutes: Routes = [
         path: 'aboutapp',
         component: AboutappComponent,
         data: {
-          title: 'About App',
+          title: 'About Us',
           urls: [
             { title: 'Dashboard', url: '/About App' },
-            { title: 'About App' }
+            { title: 'About Us' }
           ]
         }
       },
