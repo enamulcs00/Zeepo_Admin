@@ -1,13 +1,15 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import * as c3 from 'c3';
+import { ShareableService } from 'src/app/_helpers/shareable.service';
 
 @Component({
   selector: 'app-info-box',
   templateUrl: './info-box.component.html',
   styleUrls: ['./info-box.component.css']
 })
-export class InfoBoxComponent implements AfterViewInit {
-  constructor() { }
+export class InfoBoxComponent implements AfterViewInit ,OnInit{
+  DashboardData: any;
+  constructor(private service:ShareableService) { }
 
   public lineChartData: Array<any> = [
     { data: [12, 19, 3, 5, 2, 3], label: 'Balance $' }
@@ -139,4 +141,19 @@ export class InfoBoxComponent implements AfterViewInit {
       }
     });
   }
+  ngOnInit(){
+    this.GetGraphData()
+  }
+  GetGraphData(){
+    let obj = {
+      "filter_type":undefined
+  }
+      this.service.post(`admin/get-total-user-graph/`,obj).subscribe((res:any)=>{
+        if([200,201].includes(res.code)){
+          console.log('Get dash',res);
+          this.DashboardData = res.data
+   }
+      })
+        }
+  
 }
