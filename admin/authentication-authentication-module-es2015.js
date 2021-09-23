@@ -1167,6 +1167,9 @@ class Login2Component {
         if (this.loginForm.valid && this.submitted) {
             this.http.post(this.apiList.login, params).subscribe((res) => {
                 if (res.code == 200) {
+                    setTimeout(() => {
+                        this.service.Showspinner();
+                    }, 100);
                     sessionStorage.setItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue, JSON.stringify(res === null || res === void 0 ? void 0 : res.data));
                     this.cm.presentsToast('success', 'top-end', 'Logged in successfully');
                     this.router.navigateByUrl('/dashboard');

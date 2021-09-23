@@ -25,6 +25,9 @@ import { UserhistoryComponent } from './userhistory/userhistory.component';
 import { UsereditComponent } from './useredit/useredit.component';
 import { UsersComponent } from './users/users.component';
 import { UserComponent } from './user.component';
+import { AgmCoreModule } from '@agm/core';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { UserComponent } from './user.component';
     MatSortModule,
     DragDropModule,
     MatNativeDateModule,
-    RouterModule
+    RouterModule,
+    GooglePlaceModule,
+    AgmCoreModule,
+    NgxIntlTelInputModule,
   ],
 })
 export class UserModule { }

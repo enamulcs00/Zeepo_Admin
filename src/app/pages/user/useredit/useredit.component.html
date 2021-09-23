@@ -1,5 +1,5 @@
 <div class="card">
-    <form action="#">
+    <form [formGroup]="Userform">
         <div class="form-body">
             <div class="card-body">
                 <div class="row">
@@ -10,30 +10,60 @@
                 <div class="row p-t-20">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label"> Name</label>
-                            <input type="text" id="firstName" class="form-control" placeholder="John doe">
-
+                            <label class="control-label"> First name</label>
+                            <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="Enter first name" #nam (keydown.space)="!nam.value?$event.preventDefault():null">
+                            <span class="error" *ngIf="Userform.get('firstName').hasError('required') && Userform.get('firstName').touched">Please enter first name.</span>
+                            <span class="error" *ngIf="Userform.get('firstName').hasError('maxlength') && !Userform.get('firstName').hasError('pattern')">Maxlength should be 30.</span>
+                            <span class="error" *ngIf="Userform.get('firstName').hasError('minlength') && !Userform.get('firstName').hasError('pattern')">Minlength should be 3.</span>
+                            <span class="error" *ngIf="Userform.get('firstName').hasError('pattern')">Please enter aplhabet only.</span>
                         </div>
                     </div>
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label">Last name</label>
+                          <input type="text" id="firstName" class="form-control" placeholder="Enter last name" formControlName="lastName" #name1 (keydown.space)="!name1.value?$event.preventDefault():null">
+                          <span class="error" *ngIf="Userform.get('lastName').hasError('required') && Userform.get('lastName').touched">Please enter last name.</span>
+                          <span class="error" *ngIf="Userform.get('lastName').hasError('maxlength') && !Userform.get('lastName').hasError('pattern')">Maxlength should be 30.</span>
+                          <span class="error" *ngIf="Userform.get('lastName').hasError('minlength') && !Userform.get('lastName').hasError('pattern')">Minlength should be 3.</span>
+                          <span class="error" *ngIf="Userform.get('lastName').hasError('pattern')">Please enter aplhabet only.</span>
+                        </div>
+                      </div> -->
                     <!--/span-->
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input type="email" id="firstName" class="form-control" placeholder="example@gmail.com">
-
+                        <div class="form-group has-danger">
+                          <label class="control-label">Email</label>
+                          <input type="email" id="email" formControlName="email" #na (keydown.space)="!na.value?$event.preventDefault():null" class="form-control form-control-danger"
+                            placeholder="Enter email id">
+                            <span class="error" *ngIf="Userform.get('email').hasError('required') && Userform.get('email').touched">Please enter email.</span>
+                            <span class="error" *ngIf="Userform.get('email').hasError('pattern')">Please enter valid email.</span>
                         </div>
-                    </div>
+                      </div>
                     <!--/span-->
-                </div>
-                <!--/row-->
-                <div class="row ">
+              
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label">Phone Number</label>
-                            <input type="number" id="firstName" class="form-control" placeholder="554-568-524">
-
+                            <label class="control-label">Phone number</label>
+                            <ngx-intl-tel-input
+                            [cssClass]="'form-control form-control-lg'"
+                            [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                            [enableAutoCountrySelect]="false"
+                            [enablePlaceholder]="true"
+                            [separateDialCode]="true"
+                            [searchCountryFlag]="true"
+                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                            [selectFirstCountry]="false"
+                            [selectedCountryISO]="selectedCountry"
+                            [phoneValidation]="true"
+                            [maxLength]="15"
+                            [inputId]="'my-input-id'"
+                            name="phoneNo"
+                            formControlName="phoneNo"
+                          
+                        ></ngx-intl-tel-input><br>
+        <span class="error" *ngIf="Userform.get('phoneNo').hasError('required') && Userform.get('phoneNo').touched">Please enter phone number.</span>
+        <span class="error" *ngIf="Userform.get('phoneNo').hasError('validatePhoneNumber')">Invalid phone number.</span>
                         </div>
-                    </div>
+                      </div>
                     <!--/span-->
                     <!-- <div class="col-md-6">
                         <div class="form-group">
@@ -53,7 +83,9 @@
                     <div class="col-md-6">
                         <div class="form-group has-danger">
                             <label class="control-label">Company Website</label>
-                            <input type="text" id="email" class="form-control form-control-danger" placeholder="www.familyfirstlife.com">
+                            <input type="text" id="email" class="form-control form-control-danger" placeholder="www.familyfirstlife.com" formControlName="web" #web (keydown.space)="!web.value?$event.preventDefault():null">
+                            <!-- <span class="error" *ngIf="Userform.get('web').hasError('required') && Userform.get('web').touched">Please enter company website.</span> -->
+                            <span class="error" *ngIf="Userform.get('web').hasError('pattern')">Please enter valid website url.</span>
                         </div>
                     </div>
                     <!--/span-->
@@ -92,12 +124,16 @@
                         </div>
                     </div> -->
                     <!--/span-->
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group has-danger">
                             <label class="control-label">Address</label>
-                            <textarea name="" id="" cols="30" rows="5" class="form-control" placeholder="#433 New garden Complex"></textarea>
-                        </div>
+                        
+                                <input class="form-control" type="text" placeholder="Enter address" formControlName="address" #addr (keydown.space)="!addr.value?$event.preventDefault():null" ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="AddressChange($event,addr)">
+                                <span class="error" *ngIf="Userform.get('address').hasError('required') && Userform.get('address').touched">Please enter address.</span>
+                       
+                        </div>  
                     </div>
+                    
                     <!--/span-->
                 </div>
                 <!--/row-->
@@ -105,7 +141,7 @@
 
             <div class="form-actions">
                 <div class="card-body">
-                    <button type="submit" class="btn btn-primary mr-3"> Save</button>
+                    <button type="submit" (click)="updateProfileFn()" class="btn btn-primary mr-3"> Update</button>
 
                 </div>
             </div>

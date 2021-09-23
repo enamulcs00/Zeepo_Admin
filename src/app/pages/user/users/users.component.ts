@@ -32,6 +32,7 @@ export class UsersComponent implements OnInit {
   closeResult: string;
   timer: number;
   UsersList: any;
+  IsActive:any=0
   count: any = 0;
   SearchValue: string = '';
   page:number = 1
@@ -86,11 +87,11 @@ private getDismissReason(reason: any): string {
   }
 }
 DeleteAdmin(){
-  this.service.delete(`user/change-user-status/${this.userId}/`).subscribe((res:any)=>{
+  this.service.delete(`user/delete-user/${this.userId}/`).subscribe((res:any)=>{
     if([200,201].includes(res.code)){
       this.GetUsers()
       this.modalService.dismissAll()
-      this.cm.presentsToast('error','top-end','User deleted successfully')
+      this.cm.presentsToast('success','top-end','User deleted successfully')
     }
   })
 }
@@ -135,7 +136,7 @@ onPaginateChange(e): PageEvent {
 GetUsers(){
   let obj = {
     "draw": 2,
-    "filter":0,
+    "filter":this.IsActive,
     "columns": [
         {
             "data": "first_name",
@@ -210,5 +211,11 @@ this.service.post(`user/get-user-web-pagination-list/`,obj).subscribe((res:any)=
   this.count = 0
 }
   })
+}
+FilterByStatus(ref){
+  this.SearchValue =''
+this.IsActive = ref
+ this.GetUsers()
+
 }
 }

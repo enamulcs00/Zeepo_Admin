@@ -11,6 +11,7 @@ import { ShareableService } from 'src/app/_helpers/shareable.service';
 export class BikesComponent implements OnInit {
   timer: number;
   LeadsList: any;
+  IsActive:any=0
   count: any = 0;
   SearchValue: string = '';
   page:number = 1
@@ -82,7 +83,7 @@ onPaginateChange(e): PageEvent {
 GetLeads(){
   let obj = {
     "draw": 2,
-    "filter":0,
+    "filter":this.IsActive,
     "columns": [
         {
             "data": "first_name",
@@ -157,5 +158,11 @@ this.service.post(`leads/get-all-leads-pagination-list/`,obj).subscribe((res:any
   this.count = 0
 }
   })
+}
+FilterByStatus(ref){
+  this.SearchValue =''
+this.IsActive = ref
+ this.GetLeads()
+
 }
 }

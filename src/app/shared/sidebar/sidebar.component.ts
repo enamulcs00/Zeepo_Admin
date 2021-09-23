@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { ROUTES } from './menu-items';
-import { RouteInfo } from './sidebar.metadata';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, Event, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 @Component({
@@ -32,11 +32,29 @@ export class SidebarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
+    private spinner: NgxSpinnerService
   ) {}
 
   // End open close
   ngOnInit() {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
+  }
+
+  ClickListen() {
+    this.router.events.subscribe((event: Event) => {
+      console.log('Fun Called ',event);
+      this.spinner.show();
+      if (event instanceof NavigationStart) {
+        this.spinner.show();
+      }
+
+      if (event instanceof NavigationEnd) {
+        this.spinner.hide();
+      }
+
+      if (event instanceof NavigationError) {
+        this.spinner.hide();
+      }
+    });
   }
 }

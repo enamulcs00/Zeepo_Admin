@@ -56,6 +56,9 @@ export class Login2Component implements OnInit{
       if (this.loginForm.valid && this.submitted) {
           this.http.post(this.apiList.login, params).subscribe((res: any) => {
               if (res.code == 200) {
+                setTimeout(() => {
+                  this.service.Showspinner()
+                }, 100);
                 sessionStorage.setItem(environment.TokenValue,JSON.stringify(res?.data));
                   this.cm.presentsToast('success', 'top-end', 'Logged in successfully');
                   this.router.navigateByUrl('/dashboard');

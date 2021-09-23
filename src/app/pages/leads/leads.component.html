@@ -11,9 +11,20 @@
                             </div>
                         </form>
                     </div>
-                    <!-- <div class="col-md-8 mb-2 text-right">
-                        <button class="btn btn-seconadary" (click)="addBikeModal(addBike)"><i class="sl-icon-plus"></i> Add Bike</button>
-                    </div> -->
+                    <div class="col-md-8  d-flex justify-content-end">
+                        <div ngbDropdown class="d-inline-block mb-2 mr-2">
+                            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                Filter by lead status
+              </button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button class="dropdown-item" (click)="FilterByStatus(0)">All</button>
+                                <button class="dropdown-item" (click)="FilterByStatus(1)">Connected</button>
+                                <button class="dropdown-item" (click)="FilterByStatus(2)">Not connected</button>
+                            </div>
+                        </div>
+                        <!-- <button class="btn btn-primary mb-2 mr-2"><i class="sl-icon-cloud-download"></i> Export CSV</button> -->
+                       
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table v-middle product-overview" id="zero_config">
@@ -27,6 +38,7 @@
                                 <th class="text-nowrap">Zip Code</th>
                                 <th class="text-nowrap">Lead Type</th>
                                 <th class="text-nowrap">Tags</th>
+                                <th class="text-nowrap">Status</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="LeadsList">
@@ -39,6 +51,9 @@
                                 <td>{{item?.postal_code||'---'}}</td>
                                 <td>{{item?.lead_id||'---'}}</td>
                                 <td *ngIf="item?.lead_tags">{{item?.lead_tags[0]?.tags||'---'}}</td>
+                                <td><span class="badge"
+                                    [ngClass]="item?.is_connected==false?'badge bg-danger text-white':'badge bg-success text-white'">{{item?.is_connected==false?'Not connected':'Connected'}}</span>
+                                </td>
                             </tr>
                             <!-- <tr *ngIf="count==0"><td colspan="6">
                                 <h3 class="text-center">Data not found</h3>

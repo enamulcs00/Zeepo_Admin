@@ -65,7 +65,7 @@ export class ShareableService {
 	  Showspinner(){
      this.spinner.show()
 	 setTimeout(() => {
-	 this.spinner.hide()
+	//  this.spinner.hide()
 	 }, 4000);
 	}
 }
