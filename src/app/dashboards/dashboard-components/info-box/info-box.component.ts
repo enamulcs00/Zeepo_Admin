@@ -8,7 +8,7 @@ import { ShareableService } from 'src/app/_helpers/shareable.service';
   styleUrls: ['./info-box.component.css']
 })
 export class InfoBoxComponent implements AfterViewInit ,OnInit{
-  DashboardData: any;
+  UserCount: any;
   constructor(private service:ShareableService) { }
 
   public lineChartData: Array<any> = [
@@ -142,18 +142,15 @@ export class InfoBoxComponent implements AfterViewInit ,OnInit{
     });
   }
   ngOnInit(){
-    // this.GetGraphData()
+   this.GetdashboardCount()
   }
-  GetGraphData(){
-    let obj = {
-      "filter_type":undefined
-  }
-      this.service.post(`admin/get-total-user-graph/`,obj).subscribe((res:any)=>{
-        if([200,201].includes(res.code)){
-          console.log('Get dash',res);
-          this.DashboardData = res.data
-   }
-      })
-        }
+  GetdashboardCount(){
+    this.service.get(`admin/get-dashboard-count/`).subscribe((res: any) => {
+             if ([200, 201].includes(res.code)) {
+              this.UserCount = res.data
+             }
+           });
+     
+ }
   
 }

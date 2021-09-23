@@ -20,22 +20,21 @@ export interface Chart {
   styleUrls: ["./sales.component.scss"],
 })
 export class SalesComponent implements AfterViewInit {
-  DashboardData: any;
     temGraphData: any[];
-
-  constructor(private service: ShareableService) {}
-  ngOnInit() {}
-  GetGraphData() {
+    ForWeekMonth: any = 2;
+    UserCount: any;
+   constructor(private service: ShareableService) {}
+  ngOnInit() {
+      this.GetdashboardCount()
+  }
+  GetTotalGraphData() {
     let obj = {
-      filter_type: undefined,
+      filter_type: this.ForWeekMonth,
     };
-    this.service
-      .post(`admin/get-total-user-graph/`, obj)
-      .subscribe((res: any) => {
+    this.service.post(`admin/get-total-user-graph/`, obj).subscribe((res: any) => {
         if ([200, 201].includes(res.code)) {
           this.barChartData = [];
           this.barChartLabels1 = [];
-          this.DashboardData = res?.data;
           for (let obj of res?.data) {
              this.temGraphData = [];
             this.temGraphData.push(obj?.count);
@@ -45,6 +44,38 @@ export class SalesComponent implements AfterViewInit {
         }
       });
   }
+  GetNewUserGraphData() {
+    let obj = {
+      filter_type: this.ForWeekMonth,
+    };
+    this.service.post(`admin/get-new-user-graph/`, obj).subscribe((res: any) => {
+        if ([200, 201].includes(res.code)) {
+          this.barChartDataNew = [];
+          this.barChartLabels1New = [];
+           for (let obj of res?.data) {
+             var temNewUserGraphData = [];
+             temNewUserGraphData.push(obj?.count);
+            this.barChartLabels1New.push(obj?.date);
+          }
+          this.barChartDataNew.push({ data: temNewUserGraphData, label: "Sales" });
+        }
+      });
+  }
+  ChangeFor(val,ref){
+  this.ForWeekMonth = Number(val)
+   ref=='total'?this.GetTotalGraphData():this.GetNewUserGraphData()
+}
+
+GetdashboardCount(){
+   this.service.get(`admin/get-dashboard-count/`).subscribe((res: any) => {
+            if ([200, 201].includes(res.code)) {
+             this.UserCount = res.data
+        
+             
+            }
+          });
+    
+}
   // Barchart
   barChart: Chart = {
     type: "Bar",
@@ -97,7 +128,8 @@ export class SalesComponent implements AfterViewInit {
   };
 
   ngAfterViewInit() {
-    this.GetGraphData();
+      this.GetNewUserGraphData()
+    this.GetTotalGraphData();
     const chart2 = c3.generate({
       bindto: "#product-sales",
       data: {
