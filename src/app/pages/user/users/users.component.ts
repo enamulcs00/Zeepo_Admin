@@ -1,8 +1,10 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { CommonService } from 'src/app/services/common/common.service';
+import { ShareableService } from 'src/app/_helpers/shareable.service';
 export interface UserData {
   serial_no:string,
   name: string,
@@ -28,81 +30,28 @@ export interface UserData {
 })
 export class UsersComponent implements OnInit {
   closeResult: string;
-
+  timer: number;
+  UsersList: any;
+  count: any = 0;
+  SearchValue: string = '';
+  page:number = 1
+  PageSize:number = 10
   //table: any
   displayedColumns: string[] = [ 'serial_no','name', 'email','contact','address', 'web','status','action'];
   dataSource: MatTableDataSource<UserData>;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  constructor(private modalService: NgbModal) {
-    this.dataSource = new MatTableDataSource(this.table);
+  userId: any;
+  constructor(private modalService: NgbModal,private service:ShareableService,private cm:CommonService) {
+ 
   }
   ngOnInit(): void {
+    this.GetUsers()
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-
-  discountModal(discount) {
+  
+discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  table = [
-    {
-      serial_no:'1',
-      name: 'Sandy',
-      lastname: 'Doe',
-      // id: "#sand334553",
-      gender: "Male",
-      age:"20",
-      contact:"+91-33434343",
-      email:"sand@example.com",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      web:"https://www.google.com/",
-      status:"",
-      action:"1",
-    },
-    {
-      serial_no:'2',
-      name: 'Rohan',
-      lastname: 'Arya',
-      // id: "#rohan334553",
-      gender: "Female",
-      age:"20",
-      contact:"+91-33434343",
-      email:"sand@example.com",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      web:"https://www.google.com/",
-      status:"",
-      action:"1",
-    },
-    {
-      serial_no:'3',
-      name: 'John',
-      lastname: 'Root',
-      // id: "#rohan334553",
-      gender: "Male",
-      age:"20",
-      contact:"+91-33434343",
-      email:"sand@example.com",
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      web:"https://www.google.com/",
-      status:"",
-      action:"1",
-    },
-
-  ]
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+  
+  
 // This is for the first modal
 open1(content1) {
   this.modalService.open(content1, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -117,7 +66,8 @@ openWindowCustomClass(content3) {
 userprofileModal(userDelete) {
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
 }
-userDeleteModal(userDelete) {
+userDeleteModal(userDelete,id) {
+  this.userId = id
   this.modalService.open(userDelete, {backdropClass: 'light-blue-backdrop',centered: true,size: 'sm'});
 }
 userDetailModal(userDetail) {
@@ -134,5 +84,121 @@ private getDismissReason(reason: any): string {
   } else {
     return  `with: ${reason}`;
   }
+}
+DeleteAdmin(){
+  this.service.delete(`user/change-user-status/${this.userId}/`).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      this.GetUsers()
+      this.modalService.dismissAll()
+      this.cm.presentsToast('error','top-end','User deleted successfully')
+    }
+  })
+}
+Filter(event: any) {
+  window.clearTimeout(this.timer);
+  this.timer = window.setTimeout(() => {
+    let filterValue = (event.target as HTMLInputElement).value;
+    this.SearchValue=filterValue;
+   this.GetUsers();
+  }, 1000)
+}
+openWebsiteLink(link){
+  if(link!='---') {
+    window.open(link)
+  }
+  }
+onPaginateChange(e): PageEvent {
+  if (e.pageIndex == 0) {
+    this.page = e.pageIndex;
+  } else {
+    if (e.previousPageIndex < e.pageIndex) {
+      this.page =this.page+ e.pageSize;
+    } else {
+      this.page =this.page-e.pageSize;
+    }
+  }
+  this.PageSize = e.pageSize
+  this.GetUsers();
+  return e;
+}
+
+GetUsers(){
+  let obj = {
+    "draw": 2,
+    "filter":0,
+    "columns": [
+        {
+            "data": "first_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "last_name",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "phone_number",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "email",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        },
+        {
+            "data": "id",
+            "name": "",
+            "searchable": true,
+            "orderable": true,
+            "search": {
+                "value": "",
+                "regex": false
+            }
+        }
+    ],
+    "order": [
+        {
+            "column": 3,
+            "dir": "undefined"        }
+    ],
+    "start": this.page,
+    "length": this.PageSize,
+    
+    "search": {
+        "value": this.SearchValue,
+        "regex": false
+    }
+}
+this.service.post(`user/get-user-web-pagination-list/`,obj).subscribe((res:any)=>{
+  if([200,201].includes(res.code)){
+    console.log('Get Leads data',res);
+    this.dataSource = new MatTableDataSource(res?.data);
+    this.count = res?.recordsTotal
+}else{
+  this.count = 0
+}
+  })
 }
 }

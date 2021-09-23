@@ -56,16 +56,18 @@
                         </button>
                   </td>
                 </tr>
-                <tr *ngIf="count==0"><td colspan="6">
+                <!-- <tr *ngIf="count==0"><td colspan="6">
                   <h3 class="text-center">Data not found</h3>
-                </td></tr>
+                </td></tr> -->
               </tbody>
             </table>
           </div>
-          <div class="col-md-12 text-right">
-            <mat-paginator [length]="count" (page)="onPaginateChange($event)" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-        </div>
+          <h3 *ngIf="count==0" class="text-center">Data not found</h3>
+
+          <div class="col-md-12 text-right" *ngIf="count > 0">
+              <mat-paginator [length]="count" (page)="onPaginateChange($event)" [pageSize]="PageSize" [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+          </div>
         </div>
       </div>
     </div>

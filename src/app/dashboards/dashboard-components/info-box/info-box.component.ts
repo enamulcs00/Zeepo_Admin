@@ -142,7 +142,7 @@ export class InfoBoxComponent implements AfterViewInit ,OnInit{
     });
   }
   ngOnInit(){
-    this.GetGraphData()
+    // this.GetGraphData()
   }
   GetGraphData(){
     let obj = {

@@ -11,7 +11,7 @@ import { ShareableService } from 'src/app/_helpers/shareable.service';
 export class AdminComponent implements OnInit {
   timer: number;
   SubAdminData: any;
-  count: any;
+  count: any=0;
   IsActive:any
   AdminId: any;
   SearchValue: string = '';

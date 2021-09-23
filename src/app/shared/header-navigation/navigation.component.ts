@@ -116,7 +116,9 @@ ngOnInit(){
     })
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() {
+    this.GetVendorProfile()
+  }
    openBox() {
     let element = document.getElementById("notification");    
     element.classList.toggle("sidebar_slide");

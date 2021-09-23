@@ -84,6 +84,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AgmCoreModule } from '@agm/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input'
+import { BikesComponent } from './leads/leads.component';
 
 @NgModule({
   imports: [
@@ -118,7 +119,7 @@ CommonModule,
     ProfileComponent,
     // UserComponent,
     // UsersComponent,
-    // BikesComponent,
+     BikesComponent,
     // ToursComponent,
     // DestinationComponent,
     // HotelsComponent,

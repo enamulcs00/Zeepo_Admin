@@ -27,7 +27,7 @@ import { BannerComponent } from './banner/banner.component';
 import { PrivacyComponent } from './privacy-policy/privacy.component';
 import { AdminComponent } from './admin/admin.component';
 import { FoodItemsComponent } from './food-items/food-items.component';
-import { BikesComponent } from './bikes/bikes.component';
+import { BikesComponent } from './leads/leads.component';
 // import { DriverComponent } from './driver/driver.component';
 // import { DriverdetailComponent } from './driverdetail/driverdetail.component';
 // import { OrderdetailComponent } from './order/orderdetail/orderdetail.component';
