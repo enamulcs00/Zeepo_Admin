@@ -101,7 +101,7 @@ changeStatus(event, id) {
   };
   this.service.put(`user/change-user-status/${id}/`, data).subscribe((res: any) => {
     if([200,201].includes(res.code)){
-   this.cm.presentsToast('success','top-end',event.checked?'Status Activated':'Status Deactivated')
+   this.cm.presentsToast('success','top-end',event.checked?'User status Activated':'User status Deactivated')
  }
  });
 }
