@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   showMenu = '';
   showSubMenu = '';
   public sidebarnavItems: any[];
+  route_url: string;
   // this is for the open close
   addExpandClass(element: any) {
     if (element === this.showMenu) {
@@ -33,7 +34,9 @@ export class SidebarComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private spinner: NgxSpinnerService
-  ) {}
+  ) {
+    this.route_url=this.router.url;
+  }
 
   // End open close
   ngOnInit() {
@@ -42,7 +45,7 @@ export class SidebarComponent implements OnInit {
 
   ClickListen() {
     this.router.events.subscribe((event: Event) => {
-      console.log('Fun Called ',event);
+   
       this.spinner.show();
       if (event instanceof NavigationStart) {
         this.spinner.show();
