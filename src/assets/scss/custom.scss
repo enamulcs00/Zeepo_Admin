@@ -141,4 +141,10 @@ ul,li{
       td.mat-footer-cell{
         font-weight: normal;
       }
+      @media (min-width: 576px){
+        .modal-sm {
+          max-width: 210px;
+          
+        }
+      }
     }

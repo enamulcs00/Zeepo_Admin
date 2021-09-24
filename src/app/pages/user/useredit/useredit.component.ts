@@ -90,7 +90,7 @@ export class UsereditComponent implements OnInit {
       }
     this.service.put(`user/update-user-details/${this.id}/`, obj).subscribe((res:any) => {
       this.cm.presentsToast('success','top-end',"User updated successfully.");
-        window.history.back()
+      this.router.navigate(['/pages/users'])
      })
   }else{
     this.Userform.markAllAsTouched()

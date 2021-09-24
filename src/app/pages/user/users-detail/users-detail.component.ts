@@ -1,8 +1,13 @@
 import { AfterViewInit, Component, OnInit,ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { CommonService } from 'src/app/services/common/common.service';
+
+import { ShareableService } from 'src/app/_helpers/shareable.service';
 
 export interface UserData {
   // hotelName: string,
@@ -26,8 +31,14 @@ export interface UserData {
   templateUrl: './users-detail.component.html',
   styleUrls: ['./users-detail.component.css']
 })
-export class UsersDetailComponent implements AfterViewInit    {
-
+export class UsersDetailComponent implements OnInit{
+  timer: number;
+  LeadsList: any;
+  IsActive:any=0
+  count: any = 0;
+  SearchValue: string = '';
+  page:number = 1
+  PageSize:number = 10
   closeResult: string;
   //table: any
   // displayedColumns: string[] = [ 'hotelName' ,'id', 'orderdate','deliverydate','delivery_man','price','coupon','status'];
@@ -36,79 +47,145 @@ export class UsersDetailComponent implements AfterViewInit    {
   dataSource: MatTableDataSource<UserData>;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  constructor(private modalService: NgbModal) {
-    this.dataSource = new MatTableDataSource(this.table);
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
+  id: any;
+  lng: number;
+  lat: number;
+  UserData: any;
+  constructor(private modalService:NgbModal,private route:ActivatedRoute,private service:ShareableService,private router:Router,private cm:CommonService) {
+   
+    this.route.queryParams.subscribe((params)=>{
+      this.id = params.id;
+      if(this.id){
+        this.service.get(`user/get-user-details-by-id/${params?.id}/`).subscribe((data:any)=>{
+          if([200,201].includes(data.code)){
+            this.UserData = data?.data
+            this.lat = Number(data?.data?.latitude)
+             this.lng = Number(data?.data?.longitude)
+          
+          }
+          })
+      }
+     })
+}
+ 
 
   discountModal(discount) {
     this.modalService.open(discount, {backdropClass: 'light-blue-backdrop',centered: true,size: 'lg'});
   }
-  table = [
-    {   
-      serial_no:"1",
-      // audio:"assets/media/example.mp3",
-      ordered_item:"Banana : 10",
-      name: 'Big Bazar',
-      id:'Merchant1@gmail.com',
-      // contact: '+91 9874563210',
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      price:"$ 200",
-      // action:"0",
-      // status:"Completed",
-    },
-    {    
-      serial_no:"2",
-      // audio:"assets/media/example.mp3",
-      ordered_item:"Apple : 10",
-      name: 'Big Bazar',
-      id:'Merchant1@gmail.com',
-      // contact: '+91 9874563210',
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      price:"$ 250",
-      // action:"1",      
-      // status:"Rejected",
-    },
-    {    
-      serial_no:"3",
-      // audio:"assets/media/example.mp3",
-      ordered_item:"Apple : 3",
-      name: 'Big Bazar',
-      id:'Merchant1@gmail.com',
-      // contact: '+91 9874563210',
-      address:"#454 1st Block, Rammurthy, Bangalore-560016",
-      price:"$ 150",
-      // action:"1",
-      // status:"Completed",
-    },
-   
-  ]
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+ngOnInit(){
+  this.GetLeads()
+}
+  Filter(event: any) {
+    window.clearTimeout(this.timer);
+    this.timer = window.setTimeout(() => {
+      let filterValue = (event.target as HTMLInputElement).value;
+      this.SearchValue=filterValue;
+     this.GetLeads();
+    }, 1000)
+  }
+  
+  onPaginateChange(e): PageEvent {
+    if (e.pageIndex == 0) {
+      this.page = e.pageIndex;
+    } else {
+      if (e.previousPageIndex < e.pageIndex) {
+        this.page =this.page+ e.pageSize;
+      } else {
+        this.page =this.page-e.pageSize;
+      }
     }
+    this.PageSize = e.pageSize
+    this.GetLeads();
+    return e;
+  }
+  
+  GetLeads(){
+    let obj ={
+      "draw": 2,
+      "filter":this.IsActive,
+      "user_id":this.id,
+      "columns": [
+          {
+              "data": "first_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "last_name",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "phone_number",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "email",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          },
+          {
+              "data": "id",
+              "name": "",
+              "searchable": true,
+              "orderable": true,
+              "search": {
+                  "value": "",
+                  "regex": false
+              }
+          }
+      ],
+      "order": [
+          {
+              "column": 3,
+              "dir": "undefined"        }
+      ],
+      "start": this.page,
+      "length": this.PageSize,
+      
+      "search": {
+          "value": this.SearchValue,
+          "regex": false
+      }
+  }
+  this.service.post(`leads/get-all-leads-by-user-pagination-list/`,obj).subscribe((res:any)=>{
+    if([200,201].includes(res.code)){
+      console.log('Get Leads data',res);
+      this.LeadsList = res?.data
+      this.count = res?.recordsTotal
+  }else{
+    this.count = 0
+  }
+    })
+  }
+  FilterByStatus(ref){
+    this.SearchValue =''
+  this.IsActive = ref
+   this.GetLeads()
+  
   }
 }
 
-/** Builds and returns a new User. */
-// function createNewUser(id: number): UserData {
-//   const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-//       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-//   return {
-//     id: id.toString(),
-//     name: name,
-//     progress: Math.round(Math.random() * 100).toString(),
-//     color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-//   };
-// }
 
 
