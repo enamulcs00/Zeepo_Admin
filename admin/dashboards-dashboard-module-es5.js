@@ -40588,25 +40588,32 @@
       /* harmony import */
 
 
-      var c3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/router */
+      "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
+      /* harmony import */
+
+
+      var c3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! c3 */
       "./node_modules/c3/c3.js");
       /* harmony import */
 
 
-      var c3__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(c3__WEBPACK_IMPORTED_MODULE_1__);
+      var c3__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(c3__WEBPACK_IMPORTED_MODULE_2__);
       /* harmony import */
 
 
-      var src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! src/app/_helpers/shareable.service */
       "./src/app/_helpers/shareable.service.ts");
 
       var InfoBoxComponent = /*#__PURE__*/function () {
-        function InfoBoxComponent(service) {
+        function InfoBoxComponent(service, router) {
           _classCallCheck(this, InfoBoxComponent);
 
           this.service = service;
+          this.router = router;
           this.lineChartData = [{
             data: [12, 19, 3, 5, 2, 3],
             label: 'Balance $'
@@ -40688,7 +40695,7 @@
         _createClass(InfoBoxComponent, [{
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var chart = c3__WEBPACK_IMPORTED_MODULE_1__["generate"]({
+            var chart = c3__WEBPACK_IMPORTED_MODULE_2__["generate"]({
               bindto: '#foo',
               data: {
                 columns: [['data', 91.4]],
@@ -40733,13 +40740,18 @@
               }
             });
           }
+        }, {
+          key: "MoveToUser",
+          value: function MoveToUser() {
+            this.router.navigate(['/pages/users']);
+          }
         }]);
 
         return InfoBoxComponent;
       }();
 
       InfoBoxComponent.ɵfac = function InfoBoxComponent_Factory(t) {
-        return new (t || InfoBoxComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_2__["ShareableService"]));
+        return new (t || InfoBoxComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_3__["ShareableService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]));
       };
 
       InfoBoxComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
@@ -40747,7 +40759,7 @@
         selectors: [["app-info-box"]],
         decls: 19,
         vars: 2,
-        consts: [[1, "row"], [1, "col-sm-12", "col-md-3"], [1, "card", "bg-light-success", "no-card-border"], [1, "card-body"], [1, "d-flex"], [1, "m-r-10"], [1, "card", "bg-light-warning", "no-card-border"]],
+        consts: [[1, "row"], [1, "col-sm-12", "col-md-3"], [1, "card", "bg-light-success", "no-card-border", 3, "click"], [1, "card-body"], [1, "d-flex"], [1, "m-r-10"], [1, "card", "bg-light-warning", "no-card-border"]],
         template: function InfoBoxComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
@@ -40755,6 +40767,10 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function InfoBoxComponent_Template_div_click_2_listener() {
+              return ctx.MoveToUser();
+            });
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 3);
 
@@ -40843,7 +40859,9 @@
           }]
         }], function () {
           return [{
-            type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_2__["ShareableService"]
+            type: src_app_helpers_shareable_service__WEBPACK_IMPORTED_MODULE_3__["ShareableService"]
+          }, {
+            type: _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]
           }];
         }, null);
       })();

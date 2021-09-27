@@ -1,4 +1,10 @@
 (function () {
+  function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+  function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
   function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2228,19 +2234,14 @@
           _classCallCheck(this, CommonService);
 
           this.permissions = {
-            dashboard: 1,
-            users: 2,
-            walkthrough: 3,
-            banks: 4,
-            manage_update: 5,
-            notification: 6,
-            customer_support: 7,
-            wallet_address: 8,
-            request: 9,
-            analytics: 10,
-            rate_change: 11,
-            refer_and_earn: 12,
-            manage_sub_admin: 13
+            Dashboard: 1,
+            Users: 2,
+            Leads: 3,
+            Filters: 4,
+            Analytics: 5,
+            SubAdmin: 6,
+            CustomerSupport: 7,
+            'CMS Page': 8
           };
         }
 
@@ -3741,7 +3742,13 @@
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! src/environments/environment */
+      "./src/environments/environment.ts");
+      /* harmony import */
+
+
+      var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @angular/common */
       "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
 
@@ -4043,12 +4050,31 @@
         function SidebarComponent(modalService, router, spinner) {
           _classCallCheck(this, SidebarComponent);
 
+          var _a, _b;
+
           this.modalService = modalService;
           this.router = router;
           this.spinner = spinner;
           this.showMenu = '';
           this.showSubMenu = '';
+          this.permissions = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue)).permissions;
+          this.Role = (_a = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue))) === null || _a === void 0 ? void 0 : _a.role;
+          this.checkArr = [];
           this.route_url = this.router.url;
+
+          var _iterator = _createForOfIteratorHelper(this.permissions),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var param = _step.value;
+              this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
         } // this is for the open close
 
 
@@ -4074,29 +4100,38 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
+            var _this9 = this;
+
             this.sidebarnavItems = _menu_items__WEBPACK_IMPORTED_MODULE_1__["ROUTES"].filter(function (sidebarnavItem) {
-              return sidebarnavItem;
+              if (_this9.Role == 4) {
+                for (var index = 0; index < _this9.checkArr.length; index++) {
+                  if (_this9.checkArr[index] == sidebarnavItem.title) {
+                    return sidebarnavItem;
+                  }
+                }
+              } else {
+                return sidebarnavItem;
+              }
             });
           }
         }, {
           key: "ClickListen",
           value: function ClickListen() {
-            var _this9 = this;
+            var _this10 = this;
 
-            console.log('Side bar itm', this.sidebarnavItems);
             this.router.events.subscribe(function (event) {
-              _this9.spinner.show();
+              _this10.spinner.show();
 
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
-                _this9.spinner.show();
+                _this10.spinner.show();
               }
 
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
-                _this9.spinner.hide();
+                _this10.spinner.hide();
               }
 
               if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationError"]) {
-                _this9.spinner.hide();
+                _this10.spinner.hide();
               }
             });
           }
@@ -4168,7 +4203,7 @@
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.sidebarnavItems);
           }
         },
-        directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdown"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownMenu"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"]],
+        directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdown"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownMenu"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgClass"]],
         encapsulation: 2
       });
       /*@__PURE__*/
@@ -4250,7 +4285,7 @@
 
       var SpinnerComponent = /*#__PURE__*/function () {
         function SpinnerComponent(router, document) {
-          var _this10 = this;
+          var _this11 = this;
 
           _classCallCheck(this, SpinnerComponent);
 
@@ -4260,12 +4295,12 @@
           this.backgroundColor = 'rgba(0, 115, 170, 0.69)';
           this.router.events.subscribe(function (event) {
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationStart"]) {
-              _this10.isSpinnerVisible = true;
+              _this11.isSpinnerVisible = true;
             } else if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationCancel"] || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationError"]) {
-              _this10.isSpinnerVisible = false;
+              _this11.isSpinnerVisible = false;
             }
           }, function () {
-            _this10.isSpinnerVisible = false;
+            _this11.isSpinnerVisible = false;
           });
         }
 

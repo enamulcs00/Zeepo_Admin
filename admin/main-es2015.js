@@ -1104,19 +1104,14 @@ __webpack_require__.r(__webpack_exports__);
 class CommonService {
     constructor() {
         this.permissions = {
-            dashboard: 1,
-            users: 2,
-            walkthrough: 3,
-            banks: 4,
-            manage_update: 5,
-            notification: 6,
-            customer_support: 7,
-            wallet_address: 8,
-            request: 9,
-            analytics: 10,
-            rate_change: 11,
-            refer_and_earn: 12,
-            manage_sub_admin: 13
+            Dashboard: 1,
+            Users: 2,
+            Leads: 3,
+            Filters: 4,
+            Analytics: 5,
+            SubAdmin: 6,
+            CustomerSupport: 7,
+            'CMS Page': 8,
         };
     }
     presentsToast(type, position, message) {
@@ -2102,7 +2097,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/__ivy_ngcc__/fesm2015/ng-bootstrap.js");
 /* harmony import */ var ngx_spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-spinner */ "./node_modules/ngx-spinner/__ivy_ngcc__/fesm2015/ngx-spinner.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/__ivy_ngcc__/fesm2015/common.js");
+
 
 
 
@@ -2245,12 +2242,19 @@ function SidebarComponent_li_13_Template(rf, ctx) { if (rf & 1) {
 } }
 class SidebarComponent {
     constructor(modalService, router, spinner) {
+        var _a, _b;
         this.modalService = modalService;
         this.router = router;
         this.spinner = spinner;
         this.showMenu = '';
         this.showSubMenu = '';
+        this.permissions = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue)).permissions;
+        this.Role = (_a = JSON.parse(sessionStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].TokenValue))) === null || _a === void 0 ? void 0 : _a.role;
+        this.checkArr = [];
         this.route_url = this.router.url;
+        for (let param of this.permissions) {
+            this.checkArr.push((_b = param === null || param === void 0 ? void 0 : param.module) === null || _b === void 0 ? void 0 : _b.name);
+        }
     }
     // this is for the open close
     addExpandClass(element) {
@@ -2271,10 +2275,20 @@ class SidebarComponent {
     }
     // End open close
     ngOnInit() {
-        this.sidebarnavItems = _menu_items__WEBPACK_IMPORTED_MODULE_1__["ROUTES"].filter(sidebarnavItem => sidebarnavItem);
+        this.sidebarnavItems = _menu_items__WEBPACK_IMPORTED_MODULE_1__["ROUTES"].filter((sidebarnavItem) => {
+            if (this.Role == 4) {
+                for (let index = 0; index < this.checkArr.length; index++) {
+                    if (this.checkArr[index] == sidebarnavItem.title) {
+                        return sidebarnavItem;
+                    }
+                }
+            }
+            else {
+                return sidebarnavItem;
+            }
+        });
     }
     ClickListen() {
-        console.log('Side bar itm', this.sidebarnavItems);
         this.router.events.subscribe((event) => {
             this.spinner.show();
             if (event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationStart"]) {
@@ -2316,7 +2330,7 @@ SidebarComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](13);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.sidebarnavItems);
-    } }, directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdown"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownMenu"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"]], encapsulation: 2 });
+    } }, directives: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdown"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_3__["NgbDropdownMenu"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkWithHref"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgForOf"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterLinkActive"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgClass"]], encapsulation: 2 });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](SidebarComponent, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
         args: [{
