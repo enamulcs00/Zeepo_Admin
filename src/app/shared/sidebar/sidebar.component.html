@@ -35,7 +35,7 @@
             <!-- End User Profile-->
         </li>        <!-- First level menu -->
         <li class="sidebar-item" [class.selected]="showMenu === sidebarnavItem.title" *ngFor="let sidebarnavItem of sidebarnavItems"
-            [routerLinkActive]="'selected'">
+            [routerLinkActive]="sidebarnavItem?.path==''?'':'selected'">
             <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true">
                 <i [ngClass]="[sidebarnavItem.icon]"></i>
                 <span class="hide-menu ">{{sidebarnavItem.title}}</span>

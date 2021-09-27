@@ -41,9 +41,12 @@ export class SidebarComponent implements OnInit {
   // End open close
   ngOnInit() {
     this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
+    
   }
 
   ClickListen() {
+    console.log('Side bar itm',this.sidebarnavItems);
+    
     this.router.events.subscribe((event: Event) => {
    
       this.spinner.show();
