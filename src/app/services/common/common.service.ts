@@ -83,19 +83,15 @@ noSpace(event) {
     event.preventDefault();
 }
 permissions = {
-  dashboard : 1,
-  users : 2,
-  walkthrough : 3,
-  banks: 4,
-  manage_update : 5,
-  notification : 6,
-  customer_support : 7,
-  wallet_address : 8,
-  request : 9,
-  analytics : 10,
-  rate_change : 11,
-  refer_and_earn : 12,
-  manage_sub_admin : 13
+  Dashboard : 1,
+  Users : 2,
+  Leads : 3,
+  Filters: 4,
+  Analytics : 5,
+  SubAdmin : 6,
+  CustomerSupport : 7,
+  'CMS Page' : 8,
+  
 }
 checkPermission(name : string, type) {
   let userInfo = JSON.parse(sessionStorage.getItem(environment.TokenValue));

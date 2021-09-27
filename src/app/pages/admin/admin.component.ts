@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonService } from 'src/app/services/common/common.service';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -17,9 +18,22 @@ export class AdminComponent implements OnInit {
   SearchValue: string = '';
   page:number = 1
   PageSize:number = 10
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   constructor(private modalService: NgbModal,private service:ShareableService,private cm:CommonService) {}
 
   ngOnInit(): void {
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.TokenValue)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[1].is_add_edit;
+      this.viewPermission = this.permissions[1].is_view;
+    }
     this.GetSubAdmin()
   }
 // This is for the first modal

@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as c3 from 'c3';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
 
@@ -9,7 +10,7 @@ import { ShareableService } from 'src/app/_helpers/shareable.service';
 })
 export class InfoBoxComponent implements AfterViewInit ,OnInit{
   UserCount: any;
-  constructor(private service:ShareableService) { }
+  constructor(private service:ShareableService,private router:Router) { }
 
   public lineChartData: Array<any> = [
     { data: [12, 19, 3, 5, 2, 3], label: 'Balance $' }
@@ -152,5 +153,7 @@ export class InfoBoxComponent implements AfterViewInit ,OnInit{
            });
      
  }
-  
+ MoveToUser(){
+    this.router.navigate(['/pages/users'])
+  }
 }

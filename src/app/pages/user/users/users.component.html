@@ -84,13 +84,13 @@
                                     </div> -->
 
                                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                                        <button class="dropdown-item" routerLink="/pages/users/useredit" [queryParams]="{ id: row?.id}"><i class="ti-marker-alt"></i>
+                                        <button class="dropdown-item" routerLink="/pages/users/useredit" *ngIf="editPermission" [queryParams]="{ id: row?.id}"><i class="ti-marker-alt"></i>
                       Edit</button>
-                                        <a class="dropdown-item" routerLink="/pages/users/users_detail" [queryParams]="{ id: row?.id}"><i class="ti-eye"></i>
+                                        <a class="dropdown-item" routerLink="/pages/users/users_detail" *ngIf="viewPermission" [queryParams]="{ id: row?.id}"><i class="ti-eye"></i>
                       View
                     </a>
 
-                                        <button class="dropdown-item" (click)="userDeleteModal(userDelete,row?.id)"><i class="ti-trash"></i>
+                                        <button class="dropdown-item" *ngIf="editPermission" (click)="userDeleteModal(userDelete,row?.id)"><i class="ti-trash"></i>
                       Delete</button>
                                     </div>
                                 </div>

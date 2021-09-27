@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="form-group">
                       
-                        <quill-editor trackChanges="all" [style]="{height: '300px',display: 'inline-block'}" formControlName="privacy_policy" ></quill-editor>
+                        <quill-editor trackChanges="all" [readOnly]="viewPermission" [style]="{height: '300px',display: 'inline-block'}" formControlName="privacy_policy" ></quill-editor>
                         <!-- <ckeditor [editor]="Editor" formControlName="privacy"  (ready)="onReady($event)"></ckeditor> -->
                         <!-- <ckeditor
                         #editor
@@ -16,7 +16,7 @@
                         <span class="error" *ngIf="TermConditionForm.get('privacy_policy').hasError('required') && TermConditionForm.get('privacy_policy').touched">Please enter privacy policy.</span>
                       </div>
                     <div class="col-12">
-                        <button class="btn btn-primary mt-3" (click)="SaveTerms()">Save</button>
+                        <button class="btn btn-primary mt-3" [disabled]="viewPermission" (click)="SaveTerms()">Save</button>
                     </div>
                 </div>
             </div>

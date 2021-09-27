@@ -5,6 +5,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource, } from '@angular/material/table';
 import { CommonService } from 'src/app/services/common/common.service';
 import { ShareableService } from 'src/app/_helpers/shareable.service';
+import { environment } from 'src/environments/environment';
 export interface UserData {
   serial_no:string,
   name: string,
@@ -41,10 +42,23 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = [ 'serial_no','name', 'email','contact','address', 'web','status','action'];
   dataSource: MatTableDataSource<UserData>;
   userId: any;
+  permissions: any;
+  editPermission: boolean;
+  viewPermission: boolean;
   constructor(private modalService: NgbModal,private service:ShareableService,private cm:CommonService) {
  
   }
   ngOnInit(): void {
+    this.permissions = JSON.parse(
+      sessionStorage.getItem(environment.TokenValue)
+    ).permissions;
+    if (this.permissions.length==0 || this.permissions == null ||this.permissions == undefined) {
+      this.editPermission = true;
+      this.viewPermission = true;
+    } else {
+      this.editPermission = this.permissions[1].is_add_edit;
+      this.viewPermission = this.permissions[1].is_view;
+    }
     this.GetUsers()
   }
   

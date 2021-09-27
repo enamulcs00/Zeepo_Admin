@@ -4,11 +4,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <quill-editor [style]="{height: '300px',display: 'inline-block'}" formControlName="about"></quill-editor>
+                        <quill-editor [style]="{height: '300px',display: 'inline-block'}" [readOnly]="viewPermission" formControlName="about"></quill-editor>
                         <span class="error" *ngIf="TermConditionForm.get('about').hasError('required') && TermConditionForm.get('about').touched">Please enter about app.</span>
                       </div>
                     <div class="col-12">
-                        <button class="btn btn-primary mt-3" (click)="SaveTerms()">Save</button>
+                        <button class="btn btn-primary mt-3" (click)="SaveTerms()" [disabled]="viewPermission">Save</button>
                     </div>
                 </div>
             </div>
