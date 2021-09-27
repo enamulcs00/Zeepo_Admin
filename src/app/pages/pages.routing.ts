@@ -570,17 +570,17 @@ export const PagesRoutes: Routes = [
           ]
         }
       },
-      {
-        path: 'support',
-        component: SupportComponent,
-        data: {
-          title: 'Customer Support',
-          urls: [
-            { title: 'Dashboard', url: '/notification' },
-            { title: 'Notification' }
-          ]
-        }
-      },
+      // {
+      //   path: 'support',
+      //   component: SupportComponent,
+      //   data: {
+      //     title: 'Customer Support',
+      //     urls: [
+      //       { title: 'Dashboard', url: '/notification' },
+      //       { title: 'Notification' }
+      //     ]
+      //   }
+      // },
       {
         path: 'sos',
         component: SOSComponent,

@@ -316,15 +316,15 @@ export const ROUTES: RouteInfo[] = [
     //     extralink: true,
     //     submenu: []
     // },
-    {
-        path: '/pages/support',
-        title: 'Customer Support',
-        // icon: 'mdi mdi-account-star-variant',
-        icon: 'mdi mdi-headset ',
-        class: '',
-        extralink: false,
-        submenu: []
-    },
+    // {
+    //     path: '/pages/support',
+    //     title: 'Customer Support',
+        
+    //     icon: 'mdi mdi-headset ',
+    //     class: '',
+    //     extralink: false,
+    //     submenu: []
+    // },
     {
         path: '',
         title: 'CMS Pages',

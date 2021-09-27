@@ -35,7 +35,7 @@ inputMessageRef: ElementRef;
 }
 ngOnInit(): void {
   // this.permissionArray=PermissionsArray.permissions
-  this.GetSubAdmin()
+  
   setTimeout(() => {
     this.GetAdminById()
   }, 100);
@@ -134,6 +134,8 @@ GetAdminById(){
     this.selectedCountry = (findIndex != undefined)?findIndex[1]:CountryISO.India;
         }
         })
+    }else{
+      this.GetSubAdmin()
     }
    })
 }
@@ -148,12 +150,15 @@ setFormsValue(obj){
   this.permissionArray.push({label:x?.module?.name,
   "module":x?.module?.id,
   "is_add_edit":x?.is_add_edit,
-  "is_view":x?.is_view
+  "is_view":x?.is_view,
+  "id":x?.id
   })
 }
 }
  DataSubmitType(idRef,obj){
-  if(idRef){ this.service.put(`sub-admin/update-details/${idRef}/`,obj).subscribe((res:any)=>{
+  if(idRef){
+    obj.id = idRef
+     this.service.put(`sub-admin/update-details/${idRef}/`,obj).subscribe((res:any)=>{
     if ([200,201].includes(res.code)){
       this.cm.presentsToast('success','top-end','Sub Admin updated')
       window.history.back()
